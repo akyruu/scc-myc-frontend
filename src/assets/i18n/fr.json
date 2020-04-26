@@ -1,0 +1,60 @@
+{
+  "app": {
+    "title": "Calculateur de rendement minier",
+    "action": {
+      "add": "Ajouter",
+      "close": "Fermer",
+      "dismiss": "X",
+      "edit": "Editer",
+      "reset": "Réinitialiser",
+      "validate": "Valider"
+    },
+    "common": {
+      "none": "-- Aucun --"
+    },
+    "socket": {
+      "connect": "Connecté !"
+    }
+  },
+  "home": {
+    "welcome": {
+      "title": "Bienvenue !",
+      "content": {
+        "1": "Si vous venez pour pouvoir calculer/estimer votre revient de minage, vous êtes au bon endroit.",
+        "2": {
+          "1": "Cet outil a été très fortement inspiré de l'outil proposé par",
+          "2": "et intègre les modifications de"
+        }
+      }
+    },
+    "lobby": {
+      "title": "Lobby",
+      "group": {
+        "title": "Liste des équipes",
+        "name": "Equipe #{{index}}",
+        "add": "Ajouter une équipe",
+        "edit": "Edition de l'équipe #{{index}}"
+      },
+      "user": {
+        "title": "Liste des joueurs"
+      },
+      "vehicle": "{{name}} ({{cargo}} SCU)"
+    },
+    "player": {
+      "title": "Création d'un joueur",
+      "name": "Entrer votre nom (le même que IG de préférence)"
+    },
+    "room": {
+      "create": "Créer une salle",
+      "join": "Rejoindre une salle",
+      "uuid": "UUID de la salle",
+      "hint": "Indiquer l'UUID de la salle que vous souhaitez rejoindre"
+    }
+  },
+  "model": {
+    "name": "Nom",
+    "room": "Salle",
+    "vehicle": "Véhicule",
+    "uuid": "UUID"
+  }
+}

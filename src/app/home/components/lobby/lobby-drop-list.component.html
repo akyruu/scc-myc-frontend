@@ -1,0 +1,10 @@
+<div cdkDropList class="lobby-drop-list"
+     [cdkDropListData]="group"
+     (cdkDropListDropped)="doDropPlayer($event)">
+  <mat-chip-list>
+    <mat-chip cdkDrag class="lobby-drop-item" *ngFor="let p of players"
+              color="primary" [selected]="p === player"
+              [disabled]="p !== player && !leader"
+              [cdkDragData]="p" [cdkDragDisabled]="p !== player && !leader">{{ p }}</mat-chip>
+  </mat-chip-list>
+</div>

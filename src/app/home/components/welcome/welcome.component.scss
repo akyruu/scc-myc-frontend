@@ -1,0 +1,32 @@
+@import '~@angular/flex-layout/mq';
+
+// Variables
+$toolbarHeight: 64px;
+
+// Style
+:host {
+  .mat-form-field {
+    width: 100%;
+  }
+
+  @include layout-bp(lt-md) {
+    & > * {
+      margin: 1em;
+    }
+  }
+
+  @include layout-bp(gt-sm) {
+    height: calc(100vh - #{$toolbarHeight});
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > * {
+      width: 311px;
+    }
+
+    & > * + * {
+      margin-left: 1em;
+    }
+  }
+}

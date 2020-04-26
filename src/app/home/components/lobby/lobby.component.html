@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <mat-icon>domain_icon</mat-icon>
+  <span>{{ 'home.lobby.title' | translate }}</span>
+  <span class="mat-spacer"></span>
+  <span>{{ 'model.uuid' | translate }}<span fxHide.xs>: {{ room.uuid }}</span></span>
+  <button mat-icon-button [cdkCopyToClipboard]="room.uuid">
+    <mat-icon>file_copy</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div cdkDropListGroup class="lobby-content fullscreen">
+  <div class="lobby-players-container">
+    <app-lobby-players [player]="player" [room]="room" [leader]="leader"></app-lobby-players>
+  </div>
+  <div class="lobby-groups-container">
+    <app-lobby-groups [player]="player" [room]="room" [group]="group"></app-lobby-groups>
+  </div>
+</div>

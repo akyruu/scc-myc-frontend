@@ -1,0 +1,37 @@
+<form #form="ngForm">
+  <mat-card>
+    <mat-card-title>
+      <mat-icon>person</mat-icon>
+      {{ 'home.player.title' | translate }}
+    </mat-card-title>
+    <mat-card-content>
+      <mat-form-field [hintLabel]="'home.player.name' | translate">
+        <input matInput name="name" [required]="true"
+               [(ngModel)]="player"
+               [placeholder]="'model.name' | translate"/>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="button"
+              [disabled]="form.invalid" (click)="doCreateRoom()">{{ 'home.room.create' | translate }}</button>
+      <button mat-raised-button color="accent" type="button"
+              [disabled]="form.invalid" (click)="doJoinRoom()">{{ 'home.room.join' | translate }}</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<mat-card>
+  <mat-card-title>
+    <mat-icon>mood</mat-icon>
+    {{ 'home.welcome.title' | translate }}
+  </mat-card-title>
+  <mat-card-content>
+    <p>{{ 'home.welcome.content.1' | translate }}</p>
+    <p>
+      {{ 'home.welcome.content.2.1' | translate }}
+      <a href="https://robertsspaceindustries.com/community/citizen-spotlight/16649-Mining-Yield-Calculator">TRFF</a>
+      {{ 'home.welcome.content.2.2' | translate }}
+      <a href="#">Tankinator</a>
+    </p>
+  </mat-card-content>
+</mat-card>

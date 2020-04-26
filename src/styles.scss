@@ -1,1 +1,92 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/flex-layout/mq';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import 'styles/theming';
+
+/* THEMING ================================================================= */
+@include mat-core();
+
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-orange, A200, A100, A400);
+$theme: mat-dark-theme($primary, $accent);
+@include angular-material-theme($theme);
+
+@include app-theme($theme);
+
+/* VARIABLES =============================================================== */
+$toolbarHeight: 64px;
+
+/* STYLE =================================================================== */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: url('./assets/images/background.jpg') center/cover;
+}
+
+/* Application ------------------------------------------------------------- */
+.full-width {
+  width: 100%;
+}
+
+.fullscreen {
+  @include layout-bp(gt-xs) {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+}
+
+.full-size {
+  width: 100%;
+  height: 100%;
+}
+
+/* Material ---------------------------------------------------------------- */
+// mat-card with sticky footer
+.mat-card-alt {
+  display: flex !important;
+  flex-direction: column;
+
+  .mat-card-header {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0; /** <-- Add this **/
+  }
+
+  .mat-card-content {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+}
+
+// Set size of mat-card-avatar to mat-icon
+.mat-card-avatar > .mat-icon {
+  font-size: 40px;
+}
+
+.mat-form-field:not(.full-width) + .mat-form-field:not(.full-width) {
+  margin-left: 1em;
+}
+
+.mat-grid-tile > .mat-figure > .mat-card {
+  width: 100%;
+
+  @at-root .mat-figure {
+    align-items: stretch !important;
+    justify-content: stretch !important;
+  }
+}
+
+.mat-icon + * {
+  margin-left: .25em;
+}
+
+.mat-spacer {
+  flex: 1 1 auto;
+}

@@ -1,0 +1,44 @@
+<div class="lobby-groups">
+  <mat-grid-list [cols]="gridListProps.cols" [rowHeight]="gridListProps.rowHeight" gutterSize=".25em">
+    <mat-grid-tile *ngFor="let group of room.groups; let index = index">
+      <mat-card class="mat-card-alt">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon [matBadge]="(index + 1).toString()" matBadgePosition="above before">group</mat-icon>
+          </div>
+          <mat-card-title>{{ group.name }}</mat-card-title>
+          <mat-card-subtitle>
+            <ng-container *ngIf="group.vehicle">{{ 'home.lobby.vehicle' | translate:group.vehicle }}</ng-container>&nbsp;
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <app-lobby-drop-list [players]="group.players" [group]="group"
+                               [player]="player" [room]="room"></app-lobby-drop-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button *ngIf="room.leader === player || group.leader === player"
+                  (click)="doEditGroup(group, index)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="room.leader === player"
+                  (click)="doRemoveGroup(group)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="room.leader !== player && group.leader !== player"
+                  [disabled]="group.players.includes(player)"
+                  (click)="doAddPlayer(group, player)">
+            <mat-icon>person_add</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile class="lobby-add-group-tile" *ngIf="room.leader === player">
+      <mat-card class="mat-card-alt" (click)="doNewGroup()">
+        <mat-card-content>
+          {{ 'home.lobby.group.add' | translate }}
+          <mat-icon>group_add</mat-icon>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
