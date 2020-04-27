@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 
-import {AppContext, LobbyGroupSocket, LobbyRoomSocket} from '../../../core';
-import {Room, RoomGroup, RoomUtils, SettingsUtils} from '../../../shared';
+import {LobbyGroupSocket, LobbyRushSocket} from '../../../core';
+import {Menu, Player, Rush, RushUtils} from '../../../shared';
+import {LobbyService} from '../../services';
 
 @Component({
   selector: 'app-lobby',
@@ -12,93 +14,92 @@ import {Room, RoomGroup, RoomUtils, SettingsUtils} from '../../../shared';
 })
 export class LobbyComponent implements OnInit, OnDestroy {
   /* FIELDS ================================================================ */
-  player: string;
-  room: Room;
-  group: RoomGroup;
-  leader: boolean;
+  player: Player;
+  rush: Rush;
 
-  editGroupIndex: number = -1;
-  editGroupName: string;
+  menu: Menu = {
+    items: [{
+      name: 'app.action.ready', icon: 'check', showAsAction: 'ifRoom',
+      action: this.doReady.bind(this),
+      visible: () => !this.isRushLeader() && !this.player.ready,
+    }, {
+      name: 'app.action.cancel', icon: 'cancel', showAsAction: 'ifRoom',
+      action: this.doCancel.bind(this),
+      visible: () => !this.isRushLeader() && this.player.ready
+    }, {
+      name: 'home.lobby.launch', icon: 'launch', showAsAction: 'ifRoom',
+      action: this.doLaunch.bind(this),
+      disabled: () => !this.isRushValid(),
+      visible: () => this.isRushLeader()
+    }, {
+      name: 'home.lobby.quit', icon: 'exit_to_app', showAsAction: 'ifRoom',
+      action: this.doQuit.bind(this)
+    }]
+  };
 
   private readonly _subscriptions: Subscription[] = [];
 
   /* CONSTRUCTOR =========================================================== */
   constructor(
+    private _router: Router,
     private _translate: TranslateService,
-    private _appContext: AppContext,
+    private _lobbyService: LobbyService,
     private _lobbyGroupSocket: LobbyGroupSocket,
-    private _lobbyRoomSocket: LobbyRoomSocket,
+    private _lobbyRushSocket: LobbyRushSocket,
   ) {}
 
   /* METHODS =============================================================== */
   ngOnInit(): void {
-    this.player = this._appContext.player.value;
-    this.room = this._appContext.room.value;
-    this.group = this._appContext.group.value;
-    this.leader = this.room.leader === this.player;
+    this.player = this._lobbyService.player;
+    this.rush = this._lobbyService.rush;
 
-    this._subscriptions.push(...[
-      // Room
-      this._lobbyRoomSocket.playerJoined.subscribe(player => this.room.players.push(player)),
-      this._lobbyRoomSocket.playerLeaved.subscribe(player =>
-        this.room.players.splice(this.room.players.indexOf(player), 1)),
-      // Group
-      this._lobbyGroupSocket.groupCreated.subscribe(group => this.room.groups.push(group)),
-      this._lobbyGroupSocket.groupPropsUpdated.subscribe(data => {
-        const group = RoomUtils.findGroup(this.room, data.groupName);
-        if (data.updatedProps.name !== undefined) {
-          group.name = data.updatedProps.name;
-        }
-        if (data.updatedProps.vehicleName !== undefined) {
-          group.vehicle = data.updatedProps.vehicleName ? SettingsUtils.findVehicle(this.room.settings, data.updatedProps.vehicleName) : undefined;
-        }
-      }),
-      this._lobbyGroupSocket.groupRemoved.subscribe(groupName =>
-        this.room.groups.splice(this.room.groups.findIndex(group => group.name = groupName), 1)),
-      // Player
-      this._lobbyGroupSocket.playerAdded.subscribe(data => {
-        const playerIndex = this.room.players.indexOf(data.player);
-        if (playerIndex >= 0) { // Check already executed
-          this.room.players.splice(playerIndex, 1);
-
-          const group = RoomUtils.findGroup(this.room, data.groupName);
-          group.players.push(data.player);
-
-          if (data.player === this.player) {
-            this.group = group;
-          }
-        }
-      }),
-      this._lobbyGroupSocket.playerRemoved.subscribe(data => {
-        const group = RoomUtils.findGroup(this.room, data.groupName);
-        const playerIndex = group.players.indexOf(data.player);
-        if (playerIndex >= 0) { // Check already executed
-          group.players.splice(playerIndex, 1);
-          this.room.players.push(data.player);
-
-          if (data.player === this.player) {
-            this.group = null;
-          }
-        }
-      }),
-      this._lobbyGroupSocket.playerSwitched.subscribe(data => {
-        const oldGroup = RoomUtils.findGroup(this.room, data.oldGroupName);
-        const playerIndex = oldGroup.players.indexOf(data.player);
-        if (playerIndex >= 0) { // Check already executed
-          oldGroup.players.splice(playerIndex, 1);
-
-          const newGroup = RoomUtils.findGroup(this.room, data.newGroupName);
-          newGroup.players.push(data.player);
-
-          if (data.player === this.player) {
-            this.group = newGroup;
-          }
-        }
-      })
-    ]);
+    this._subscriptions.push(
+      ...this._lobbyService.bindRushEvents(),
+      ...this._lobbyService.bindGroupEvents(),
+      ...this._lobbyService.bindPlayerEvents()
+    );
   }
 
   ngOnDestroy(): void {
     this._subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  /* View ------------------------------------------------------------------ */
+  get group() { // Group is updated
+    return this._lobbyService.group;
+  }
+
+  isRushLeader(): boolean {
+    return RushUtils.isLeader(this.rush, this.player.name);
+  }
+
+  isRushValid(): boolean {
+    if (this.rush.players.length > 0) {
+      return false;
+    }
+    for (let group of this.rush.groups) {
+      if (group.players.length === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /* Events ---------------------------------------------------------------- */
+  doReady(): void {
+    // TODO
+  }
+
+  doCancel(): void {
+    // TODO
+  }
+
+  doLaunch() {
+    this._lobbyRushSocket.launchRush();
+  }
+
+  async doQuit(): Promise<void> {
+    await this._lobbyRushSocket.leaveRush();
+    this._router.navigate(['/welcome']).then();
   }
 }

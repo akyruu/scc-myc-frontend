@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
-import {Room, RoomGroup} from '../../shared';
+import {Group, Player, Rush} from '../../shared';
 
 export class SessionItem {
   constructor(private _key) {}
@@ -17,7 +17,8 @@ export class SessionItem {
 
 @Injectable({providedIn: 'root'})
 export class AppContext {
-  readonly player = new SessionItem('scc-myc-player');
-  readonly room = new BehaviorSubject<Room>(null);
-  readonly group = new BehaviorSubject<RoomGroup>(null);
+  readonly playerName = new SessionItem('scc-myc-player');
+  player: Player;
+  rush: Rush;
+  readonly group = new BehaviorSubject<Group>(null);
 }

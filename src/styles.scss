@@ -63,6 +63,11 @@ body {
     flex-grow: 1;
     overflow-y: auto;
   }
+
+  .mat-card-actions {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 // Set size of mat-card-avatar to mat-icon

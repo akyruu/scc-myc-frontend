@@ -15,6 +15,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -24,7 +25,21 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 
+import {ToolbarComponent} from './components';
+
 @NgModule({
+  declarations: [
+    ToolbarComponent
+  ],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    // Material
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatToolbarModule,
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -53,6 +68,8 @@ import {TranslateModule} from '@ngx-translate/core';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    // Application
+    ToolbarComponent
   ]
 })
 export class SharedModule {}

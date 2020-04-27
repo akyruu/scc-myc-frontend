@@ -1,0 +1,17 @@
+<mat-card class="lobby-players mat-card-alt">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon [matBadge]="(rush.players.length).toString()"
+                [matBadgeColor]="rush.players.length > 0 ? 'warn' : null"
+                matBadgePosition="above before"
+                [title]="'home.lobby.player.number' | translate">
+        person
+      </mat-icon>
+    </div>
+    <mat-card-title>{{ 'home.lobby.player.title' | translate }}</mat-card-title>
+    <mat-card-subtitle>{{ 'home.lobby.player.subtitle' | translate }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <app-lobby-drop-list [players]="rush.players" [player]="player" [rush]="rush"></app-lobby-drop-list>
+  </mat-card-content>
+</mat-card>

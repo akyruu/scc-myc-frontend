@@ -25,29 +25,7 @@ $chipHeight: 32px;
   }
 }
 
-.lobby-players {
-  @include layout-bp(gt-xs) {
-    margin-right: $pad;
-    min-width: 250px;
-    height: calc(100% - (#{$pad}) * 2); // FIXME why pad ? padding is included ?
-  }
-}
-
-.lobby-drop-list {
-  border: solid 1px white; // FIXME theming color
-  border-radius: $radius;
-  min-height: $chipHeight;
-}
-
-.lobby-drop-item {
-  border-radius: $radius;
-
-  @include layout-bp(gt-xs) {
-    width: 100%;
-  }
-}
-
-.lobby-groups-container {
+.lobby-content-body {
   @include layout-bp(gt-xs) {
     width: 100%;
     height: 100%;
@@ -61,42 +39,5 @@ $chipHeight: 32px;
     .lobby-groups > ::ng-deep .carousel {
       height: calc(100% - #{$toolbarHeight});
     }
-  }
-}
-
-.cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.lobby-drop-item:last-child {
-  border: none;
-}
-
-.lobby-drop-list.cdk-drop-list-dragging .lobby-drop-item:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-// Hacks
-.mat-card-title form {
-  display: inline-flex;
-  align-items: baseline;
-  box-sizing: border-box;
-  width: 100%;
-
-  .mat-input-element {
-    align-self: normal;
-    margin-top: 0;
   }
 }

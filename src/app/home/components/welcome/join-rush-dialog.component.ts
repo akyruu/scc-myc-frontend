@@ -2,34 +2,35 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {AppContext} from '../../../core/contexts';
-import {LobbyRoomSocket} from '../../../core/sockets';
+import {LobbyRushSocket} from '../../../core/sockets';
 
-export interface JoinRoomData {
-  player: string;
+export interface JoinRushData {
+  playerName: string;
 }
 
 @Component({
-  selector: 'app-join-room-dialog',
-  templateUrl: './join-room-dialog.component.html',
-  styleUrls: ['./join-room-dialog.component.scss']
+  selector: 'app-join-rush-dialog',
+  templateUrl: './join-rush-dialog.component.html',
+  styleUrls: ['./join-rush-dialog.component.scss']
 })
-export class JoinRoomDialogComponent {
+export class JoinRushDialogComponent {
   /* FIELDS ================================================================ */
-  roomUuid: string;
+  rushUuid: string;
 
   /* CONSTRUCTOR =========================================================== */
   constructor(
-    public dialogRef: MatDialogRef<JoinRoomDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private _data: JoinRoomData,
+    public dialogRef: MatDialogRef<JoinRushDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private _data: JoinRushData,
     private _router: Router,
     private _appContext: AppContext,
-    private _lobbyRoomSocket: LobbyRoomSocket,
+    private _lobbyRushSocket: LobbyRushSocket,
   ) {}
 
   /* METHODS =============================================================== */
   async doSubmit(): Promise<void> {
-    const room = await this._lobbyRoomSocket.joinRoom(this._data.player, this.roomUuid);
-    this._appContext.room.next(room);
+    const result = await this._lobbyRushSocket.joinRush(this._data.playerName, this.rushUuid);
+    this._appContext.player = result.player;
+    this._appContext.rush = result.rush;
 
     this._router.navigate(['/lobby']).then();
     this.dialogRef.close();

@@ -4,18 +4,17 @@ import {SharedModule} from '../shared';
 import {
   GroupEditDialogComponent,
   GroupsComponent,
-  HomeComponent,
-  JoinRoomDialogComponent,
+  JoinRushDialogComponent,
   LobbyComponent,
+  LobbyDropListComponent,
   LobbyPlayersComponent,
   WelcomeComponent
 } from './components';
-import {LobbyDropListComponent} from './components/lobby/lobby-drop-list.component';
 import {HomeRountingModule} from './home-rounting.module';
+import {LobbyService} from './services';
 
 @NgModule({
   declarations: [
-    HomeComponent,
     // Lobby
     LobbyComponent,
     LobbyDropListComponent,
@@ -23,14 +22,15 @@ import {HomeRountingModule} from './home-rounting.module';
     GroupsComponent,
     GroupEditDialogComponent,
     // Welcome
-    JoinRoomDialogComponent,
+    JoinRushDialogComponent,
     WelcomeComponent,
   ],
   imports: [
     HomeRountingModule,
     SharedModule,
   ],
-  exports: [],
+  providers: [
+    LobbyService
+  ]
 })
-export class HomeModule {
-}
+export class HomeModule {}

@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <mat-icon svgIcon="pickaxe"></mat-icon>
+  <span>{{ 'app.title' | translate }}</span>
+  <ng-container *ngIf="menu">
+    <span class="mat-spacer"></span>
+    <button mat-icon-button *ngFor="let item of actionItems"
+            [title]="item.name | translate" [disabled]="isItemDisabled(item)"
+            (click)="onClick(item)">
+      <mat-icon>{{ item.icon }}</mat-icon>
+    </button>
+    <ng-container *ngIf="otherItems.length > 0">
+      <button mat-icon-button [matMenuTriggerFor]="menu" [title]="'app.common.more' | translate">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu>
+        <button mat-menu-item *ngFor="let item of otherItems"
+                [disabled]="isItemDisabled(item)"
+                (click)="onClick(item)">
+          <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+          <span>{{ item.name | translate }}</span>
+        </button>
+      </mat-menu>
+    </ng-container>
+  </ng-container>
+</mat-toolbar>

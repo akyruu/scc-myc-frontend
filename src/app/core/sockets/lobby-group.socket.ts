@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 
-import {RoomGroup} from '../../shared';
+import {Group, GroupProps} from '../../shared';
 
 @Injectable({providedIn: 'root'})
 export class LobbyGroupSocket {
   /* FIELDS ================================================================ */
-  readonly groupCreated = this._socket.fromEvent<RoomGroup>('lobby:group:created');
-  readonly groupPropsUpdated = this._socket.fromEvent<{ groupName: string, updatedProps: { name?: string, vehicleName?: string } }>('lobby:group:propsUpdated');
+  readonly groupCreated = this._socket.fromEvent<Group>('lobby:group:created');
+  readonly groupPropsUpdated = this._socket.fromEvent<{ groupName: string, updatedProps: GroupProps }>('lobby:group:propsUpdated');
   readonly groupRemoved = this._socket.fromEvent<string>('lobby:group:removed');
 
-  readonly playerAdded = this._socket.fromEvent<{ player: string, groupName: string }>('lobby:group:playerAdded');
-  readonly playerRemoved = this._socket.fromEvent<{ player: string, groupName: string }>('lobby:group:playerRemoved');
-  readonly playerSwitched = this._socket.fromEvent<{ player: string, oldGroupName: string, newGroupName: string }>('lobby:group:playerSwitched');
+  readonly playerAdded = this._socket.fromEvent<{ playerName: string, groupName: string }>('lobby:group:playerAdded');
+  readonly playerRemoved = this._socket.fromEvent<{ playerName: string, groupName: string }>('lobby:group:playerRemoved');
+  readonly playerSwitched = this._socket.fromEvent<{ playerName: string, oldGroupName: string, newGroupName: string }>('lobby:group:playerSwitched');
 
   /* CONSTRUCTOR =========================================================== */
   constructor(private _socket: Socket) {}
@@ -33,7 +33,7 @@ export class LobbyGroupSocket {
    * @param groupName Name of group to update.
    * @param updatedProps Updated properties of group.
    */
-  updateGroupProps(groupName: string, updatedProps: { name?: string, vehicleName?: string }): Promise<void> {
+  updateGroupProps(groupName: string, updatedProps: GroupProps): Promise<void> {
     this._socket.emit('lobby:group:updateProps', {groupName: groupName, updatedProps: updatedProps});
     return this._socket.fromOneTimeEvent('lobby:group:propsUpdated');
   }
@@ -51,31 +51,31 @@ export class LobbyGroupSocket {
   /**
    * Add player to group.
    *
-   * @param player Player to add.
+   * @param playerName Player to add.
    * @param groupName Name of target group.
    */
-  addPlayer(player: string, groupName: string): void {
-    this._socket.emit('lobby:group:addPlayer', {player: player, groupName: groupName});
+  addPlayer(playerName: string, groupName: string): void {
+    this._socket.emit('lobby:group:addPlayer', {playerName: playerName, groupName: groupName});
   }
 
   /**
    * Remove player in group.
    *
-   * @param player Player to remove.
+   * @param playerName Player name to remove.
    * @param groupName Name of target group.
    */
-  removePlayer(player: string, groupName: string): void {
-    this._socket.emit('lobby:group:removePlayer', {player: player, groupName: groupName});
+  removePlayer(playerName: string, groupName: string): void {
+    this._socket.emit('lobby:group:removePlayer', {playerName: playerName, groupName: groupName});
   }
 
   /**
    * Switch player between two groups.
    *
-   * @param player Player to switch.
+   * @param playerName Player name to switch.
    * @param oldGroupName Name of source group.
    * @param newGroupName Name of target group.
    */
-  switchPlayer(player: string, oldGroupName: string, newGroupName: string): void {
-    this._socket.emit('lobby:group:switchPlayer', {player: player, oldGroupName: oldGroupName, newGroupName: newGroupName});
+  switchPlayer(playerName: string, oldGroupName: string, newGroupName: string): void {
+    this._socket.emit('lobby:group:switchPlayer', {playerName: playerName, oldGroupName: oldGroupName, newGroupName: newGroupName});
   }
 }

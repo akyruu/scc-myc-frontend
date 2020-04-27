@@ -3,17 +3,20 @@
     "title": "Calculateur de rendement minier",
     "action": {
       "add": "Ajouter",
+      "cancel": "Annuler",
       "close": "Fermer",
       "dismiss": "X",
       "edit": "Editer",
+      "ready": "Prêt...",
       "reset": "Réinitialiser",
       "validate": "Valider"
     },
     "common": {
+      "more": "Plus...",
       "none": "-- Aucun --"
     },
     "socket": {
-      "connect": "Connecté !"
+      "error": "Une erreur inconnu est survenu. Veuillez contacter votre Administrateur (code: {{code}})"
     }
   },
   "home": {
@@ -29,14 +32,20 @@
     },
     "lobby": {
       "title": "Lobby",
+      "launch": "Lancer la partie",
+      "quit": "Quitter la partie",
       "group": {
         "title": "Liste des équipes",
         "name": "Equipe #{{index}}",
         "add": "Ajouter une équipe",
-        "edit": "Edition de l'équipe #{{index}}"
+        "edit": "Edition de l'équipe #{{index}}",
+        "join": "Rejoindre l'équipe",
+        "playersNumber": "Nombre de joueurs dans l'équipe"
       },
-      "user": {
-        "title": "Liste des joueurs"
+      "player": {
+        "title": "Liste des joueurs",
+        "subtitle": "Répartition en équipes",
+        "number": "Nombre de joueurs a effecté à une équipe"
       },
       "vehicle": "{{name}} ({{cargo}} SCU)"
     },
@@ -44,16 +53,17 @@
       "title": "Création d'un joueur",
       "name": "Entrer votre nom (le même que IG de préférence)"
     },
-    "room": {
-      "create": "Créer une salle",
-      "join": "Rejoindre une salle",
-      "uuid": "UUID de la salle",
-      "hint": "Indiquer l'UUID de la salle que vous souhaitez rejoindre"
+    "rush": {
+      "create": "Créer un Rush",
+      "join": "Rejoindre un Rush",
+      "uuid": "Rush UUID",
+      "hint": "Indiquer l'UUID du Rush que vous souhaitez rejoindre"
     }
   },
   "model": {
     "name": "Nom",
-    "room": "Salle",
+    "leader": "Leader",
+    "rush": "Rush",
     "vehicle": "Véhicule",
     "uuid": "UUID"
   }

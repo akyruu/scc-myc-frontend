@@ -1,0 +1,23 @@
+@import '~@angular/flex-layout/mq';
+
+// Variables
+$pad: 1em;
+
+// FIXME use a best way of 100% for all divs
+
+// Style
+.lobby-players {
+  @include layout-bp(gt-xs) {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+
+    margin-right: $pad;
+    min-width: 250px;
+    height: calc(100% - (#{$pad}) * 2); // FIXME why pad ? padding is included ?
+
+    ::ng-deep .lobby-drop-list {
+      height: calc(100% - 2px); // 2px: border size
+    }
+  }
+}

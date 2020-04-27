@@ -1,9 +1,9 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppContext} from '../../../core/contexts';
-import {LobbyRoomSocket} from '../../../core/sockets';
-import {JoinRoomData, JoinRoomDialogComponent} from './join-room-dialog.component';
+import {LobbyRushSocket} from '../../../core/sockets';
+import {JoinRushData, JoinRushDialogComponent} from './join-rush-dialog.component';
 
 @Component({
   selector: 'app-welcome',
@@ -12,7 +12,7 @@ import {JoinRoomData, JoinRoomDialogComponent} from './join-room-dialog.componen
 })
 export class WelcomeComponent implements OnInit {
   /* FIELDS ================================================================ */
-  player: string;
+  playerName: string;
 
   /* CONSTRUCTOR =========================================================== */
   constructor(
@@ -20,25 +20,26 @@ export class WelcomeComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _appContext: AppContext,
-    private _lobbyRoomSocket: LobbyRoomSocket,
+    private _lobbyRushSocket: LobbyRushSocket,
   ) {}
 
   /* METHODS =============================================================== */
   ngOnInit(): void {
-    this.player = this._appContext.player.value;
+    this.playerName = this._appContext.playerName.value;
   }
 
   /* Events ---------------------------------------------------------------- */
-  doJoinRoom(): void {
-    this._appContext.player.next(this.player);
-    this._dialog.open(JoinRoomDialogComponent, {data: <JoinRoomData>{player: this.player}});
+  doJoinRush(): void {
+    this._appContext.playerName.next(this.playerName);
+    this._dialog.open(JoinRushDialogComponent, {data: <JoinRushData>{playerName: this.playerName}});
   }
 
-  async doCreateRoom(): Promise<void> {
-    this._appContext.player.next(this.player);
+  async doCreateRush(): Promise<void> {
+    this._appContext.playerName.next(this.playerName);
 
-    const room = await this._lobbyRoomSocket.createRoom(this.player);
-    this._appContext.room.next(room);
+    const result = await this._lobbyRushSocket.createRush(this.playerName);
+    this._appContext.player = result.player;
+    this._appContext.rush = result.rush;
 
     this._router.navigate(['/lobby']).then();
   }

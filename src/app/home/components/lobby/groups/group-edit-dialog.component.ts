@@ -1,39 +1,44 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Router} from '@angular/router';
-import {AppContext} from '../../../../core/contexts';
-import {LobbyGroupSocket, LobbyRoomSocket} from '../../../../core/sockets';
-import {RoomGroup, Settings} from '../../../../shared/models';
+import {LobbyGroupSocket} from '../../../../core/sockets';
+import {Group, Settings} from '../../../../shared/models';
 
 export interface GroupEditData {
-  group: RoomGroup;
+  group: Group;
   groupIndex: number;
-
-  groupName: string;
-  vehicleName: string;
-
   settings: Settings;
 }
 
 @Component({
-  selector: 'app-group-edit-room-dialog',
+  selector: 'app-group-edit-rush-dialog',
   templateUrl: './group-edit-dialog.component.html'
 })
 export class GroupEditDialogComponent {
+  /* FIELDS ================================================================ */
+  groupName: string;
+  vehicleName: string;
+  leaderName: string;
+
+
   /* CONSTRUCTOR =========================================================== */
   constructor(
     public dialogRef: MatDialogRef<GroupEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupEditData,
     private _lobbyGroupSocket: LobbyGroupSocket,
-  ) {}
+  ) {
+    this.groupName = this.data.group.name;
+    this.vehicleName = this.data.group.vehicle?.name;
+    this.leaderName = this.data.group.leader?.name;
+  }
 
   /* METHODS =============================================================== */
   async doSubmit(): Promise<void> {
     const group = this.data.group;
 
     const updatedProps = {
-      name: this.data.groupName !== group.name ? this.data.groupName : undefined,
-      vehicleName: this.data.vehicleName !== group.vehicle?.name ? this.data.vehicleName : undefined
+      name: this.groupName !== group.name ? this.groupName : undefined,
+      vehicleName: this.vehicleName !== group.vehicle?.name ? this.vehicleName : undefined,
+      leaderName: this.leaderName !== group.leader?.name ? this.leaderName : undefined,
     };
     if (Object.keys(updatedProps).length > 0) {
       await this._lobbyGroupSocket.updateGroupProps(group.name, updatedProps);

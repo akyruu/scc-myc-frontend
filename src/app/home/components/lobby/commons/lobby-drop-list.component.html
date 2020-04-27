@@ -1,0 +1,20 @@
+<div cdkDropList class="lobby-drop-list"
+     [cdkDropListData]="group"
+     (cdkDropListDropped)="doDropPlayer($event)">
+  <mat-chip-list>
+    <mat-chip cdkDrag class="lobby-drop-item" *ngFor="let p of players; let index = index"
+              [color]="getColor(p)" [selected]="!!getColor(p)"
+              [disabled]="!isMovable(p)"
+              [cdkDragData]="p" [cdkDragDisabled]="!isMovable(p)">
+      <span>{{ p.name }}</span>
+      <span class="mat-spacer"></span>
+      <mat-icon class="mat-chip-trailing-icon" *ngIf="this.group?.leader?.name === p.name">
+        supervised_user_circle
+      </mat-icon>
+      <mat-icon class="mat-chip-trailing-icon mat-chip-remove" *ngIf="isRemovable(p)"
+                (click)="doRemovePlayer(p, index)">
+        cancel
+      </mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>

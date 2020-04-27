@@ -1,10 +1,15 @@
 <div class="lobby-groups">
   <mat-grid-list [cols]="gridListProps.cols" [rowHeight]="gridListProps.rowHeight" gutterSize=".25em">
-    <mat-grid-tile *ngFor="let group of room.groups; let index = index">
+    <mat-grid-tile *ngFor="let group of rush.groups; let index = index">
       <mat-card class="mat-card-alt">
         <mat-card-header>
           <div mat-card-avatar>
-            <mat-icon [matBadge]="(index + 1).toString()" matBadgePosition="above before">group</mat-icon>
+            <mat-icon [matBadge]="(group.players.length).toString()"
+                      [matBadgeColor]="group.players.length === 0 ? 'warn' : null"
+                      matBadgePosition="above before"
+                      [title]="'home.lobby.group.playersNumber' | translate">
+              group
+            </mat-icon>
           </div>
           <mat-card-title>{{ group.name }}</mat-card-title>
           <mat-card-subtitle>
@@ -13,18 +18,18 @@
         </mat-card-header>
         <mat-card-content>
           <app-lobby-drop-list [players]="group.players" [group]="group"
-                               [player]="player" [room]="room"></app-lobby-drop-list>
+                               [player]="player" [rush]="rush"></app-lobby-drop-list>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-icon-button *ngIf="room.leader === player || group.leader === player"
-                  (click)="doEditGroup(group, index)">
+          <button mat-icon-button (click)="doEditGroup(group, index)" *ngIf="isRushLeader() || isGroupLeader(group)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button *ngIf="room.leader === player"
-                  (click)="doRemoveGroup(group)">
+          <button mat-icon-button (click)="doRemoveGroup(group)" *ngIf="isRushLeader()">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button *ngIf="room.leader !== player && group.leader !== player"
+          <div class="mat-spacer"></div>
+          <button mat-icon-button
+                  [title]="'home.lobby.group.join' | translate"
                   [disabled]="group.players.includes(player)"
                   (click)="doAddPlayer(group, player)">
             <mat-icon>person_add</mat-icon>
@@ -32,7 +37,7 @@
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile class="lobby-add-group-tile" *ngIf="room.leader === player">
+    <mat-grid-tile class="lobby-add-group-tile" *ngIf="isRushLeader()">
       <mat-card class="mat-card-alt" (click)="doNewGroup()">
         <mat-card-content>
           {{ 'home.lobby.group.add' | translate }}

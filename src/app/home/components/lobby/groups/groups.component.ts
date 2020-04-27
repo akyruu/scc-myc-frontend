@@ -5,7 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 
 import {LobbyGroupSocket} from '../../../../core';
-import {Room, RoomGroup} from '../../../../shared';
+import {Group, GroupUtils, Player, Rush, RushUtils} from '../../../../shared';
 import {GroupEditData, GroupEditDialogComponent} from './group-edit-dialog.component';
 
 interface GridListProps {
@@ -16,7 +16,7 @@ interface GridListProps {
 @Component({
   selector: 'app-lobby-groups',
   templateUrl: './groups.component.html',
-  styleUrls: ['../lobby.component.scss', './groups.component.scss']
+  styleUrls: ['./groups.component.scss']
 })
 export class GroupsComponent implements OnInit, OnDestroy {
   /* STATIC FIELDS ========================================================= */
@@ -29,9 +29,9 @@ export class GroupsComponent implements OnInit, OnDestroy {
   ]);
 
   /* FIELDS ================================================================ */
-  @Input() player: string;
-  @Input() room: Room;
-  @Input() group: RoomGroup;
+  @Input() player: Player;
+  @Input() rush: Rush;
+  @Input() group: Group;
 
   gridListProps: GridListProps = {cols: 3, rowHeight: '3:3'};
 
@@ -60,41 +60,48 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this._subscription.unsubscribe();
   }
 
+  /* View ------------------------------------------------------------------ */
+  isRushLeader(): boolean {
+    return RushUtils.isLeader(this.rush, this.player.name);
+  }
+
+  isGroupLeader(group: Group): boolean {
+    return GroupUtils.isLeader(group, this.player.name);
+  }
+
   /* Events ---------------------------------------------------------------- */
   doNewGroup(): void {
-    const groupName = this._translate.instant('home.lobby.group.name', {index: this.room.groups.length + 1});
+    const groupName = this._translate.instant('home.lobby.group.name', {index: this.rush.groups.length + 1});
     this._lobbyGroupSocket.createGroup(groupName);
   }
 
-  doEditGroup(group: RoomGroup, index: number): void {
+  doEditGroup(group: Group, index: number): void {
     this._dialog.open(GroupEditDialogComponent, {
       data: <GroupEditData>{
         group: group,
         groupIndex: index,
-        groupName: group.name,
-        vehicleName: group.vehicle?.name,
-        settings: this.room.settings
+        settings: this.rush.settings
       }
     });
   }
 
-  doRemoveGroup(group: RoomGroup): void {
+  doRemoveGroup(group: Group): void {
     this._lobbyGroupSocket.removeGroup(group.name);
   }
 
   /* Player ---------------------------------------------------------------- */
-  doAddPlayer(group: RoomGroup, player: string): void {
-    let prevGroup: RoomGroup;
+  doAddPlayer(group: Group, player: Player): void {
+    let prevGroup: Group;
     if (player === this.player) {
       prevGroup = this.group;
-    } else if (!this.room.players.includes(player)) {
-      prevGroup = this.room.groups.find(group => group.players.includes(player));
+    } else if (!this.rush.players.includes(player)) {
+      prevGroup = this.rush.groups.find(group => group.players.includes(player));
     }
 
     if (prevGroup) {
-      this._lobbyGroupSocket.switchPlayer(player, prevGroup.name, group.name);
+      this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.name, group.name);
     } else {
-      this._lobbyGroupSocket.addPlayer(player, group.name);
+      this._lobbyGroupSocket.addPlayer(player.name, group.name);
     }
   }
 }

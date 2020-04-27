@@ -13,7 +13,7 @@ export class LobbyGuard implements CanActivate {
 
   /* METHODS =============================================================== */
   canActivate(): boolean {
-    if (!this._appContext.player.value || !this._appContext.room.value) {
+    if (!this._appContext.player || !this._appContext.rush) {
       this._router.navigate(['/welcome']).then();
       return false;
     }

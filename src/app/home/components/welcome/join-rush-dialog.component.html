@@ -1,10 +1,10 @@
 <form #form="ngForm" (submit)="doSubmit()">
-  <h1 mat-dialog-title>{{ 'home.room.join' | translate }}</h1>
+  <h1 mat-dialog-title>{{ 'home.rush.join' | translate }}</h1>
   <div mat-dialog-content>
-    <mat-form-field [hintLabel]="'home.room.hint' | translate">
-      <input matInput name="roomUuid"
-             [(ngModel)]="roomUuid" [required]="true"
-             [placeholder]="'home.room.uuid' | translate"/>
+    <mat-form-field [hintLabel]="'home.rush.hint' | translate">
+      <input matInput name="rushUuid"
+             [(ngModel)]="rushUuid" [required]="true"
+             [placeholder]="'home.rush.uuid' | translate"/>
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
