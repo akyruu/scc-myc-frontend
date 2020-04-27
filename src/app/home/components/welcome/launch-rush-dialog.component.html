@@ -1,0 +1,22 @@
+<form #form="ngForm" (submit)="doSubmit()">
+  <h1 mat-dialog-title>{{ 'home.rush.launch' | translate }}</h1>
+  <div mat-dialog-content>
+    <mat-select name="vehicle" [(ngModel)]="vehicleName"
+                [placeholder]="'model.vehicle' | translate">
+      <mat-option>{{ 'app.common.none' | translate }}</mat-option>
+      <mat-option *ngFor="let vehicle of data.rush.settings.vehicles" [value]="vehicle.name">
+        {{ 'home.lobby.vehicle' | translate:vehicle }}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      <mat-icon>done</mat-icon>
+      {{ 'app.action.validate' | translate}}
+    </button>
+    <button mat-raised-button type="button" (click)="doClose()">
+      <mat-icon>cancel</mat-icon>
+      {{ 'app.action.close' | translate }}
+    </button>
+  </div>
+</form>

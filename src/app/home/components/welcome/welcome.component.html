@@ -14,10 +14,25 @@
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="button"
-                [disabled]="form.invalid" (click)="doCreateRush()">{{ 'home.rush.create' | translate }}</button>
-        <button mat-raised-button color="accent" type="button"
-                [disabled]="form.invalid" (click)="doJoinRush()">{{ 'home.rush.join' | translate }}</button>
+        <div class="welcome-action-row">
+          <button mat-raised-button color="primary" type="button"
+                  [disabled]="form.invalid" (click)="doCreateRush()">
+            <mat-icon>group</mat-icon>
+            {{ 'home.rush.create' | translate }}
+          </button>
+          <button mat-raised-button color="primary" type="button"
+                  [disabled]="form.invalid" (click)="doLaunchRush()">
+            <mat-icon>person</mat-icon>
+            {{ 'home.rush.launch' | translate }}
+          </button>
+        </div>
+        <div class="welcome-action-row">
+          <button mat-raised-button color="accent" type="button"
+                  [disabled]="form.invalid" (click)="doJoinRush()">
+            <mat-icon>person_add</mat-icon>
+            {{ 'home.rush.join' | translate }}
+          </button>
+        </div>
       </mat-card-actions>
     </mat-card>
   </form>

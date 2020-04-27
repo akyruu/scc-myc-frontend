@@ -95,7 +95,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   doLaunch() {
-    this._lobbyRushSocket.launchRush();
+    this._lobbyRushSocket.launchRush().then(); // Event consumed at event binding
   }
 
   async doQuit(): Promise<void> {

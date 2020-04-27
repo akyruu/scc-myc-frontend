@@ -17,7 +17,7 @@ export class SessionItem {
 
 @Injectable({providedIn: 'root'})
 export class AppContext {
-  readonly playerName = new SessionItem('scc-myc-player');
+  readonly playerName = new SessionItem('scc-myc-player'); // FIXME move to user-session class ?
   player: Player;
   rush: Rush;
   readonly group = new BehaviorSubject<Group>(null);

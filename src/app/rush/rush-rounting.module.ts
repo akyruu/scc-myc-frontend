@@ -1,12 +1,23 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule} from '@angular/router';
 
-import {RushComponent} from './components';
+import {PlayerBoxComponent, PlayerComponent, PlayerOverviewComponent, RushComponent} from './components';
 import {RushGuard} from './guards';
 
-const routes: Route[] = [
-  {path: '', component: RushComponent, canActivate: [RushGuard]},
-];
+const routes: Route[] = [{
+  path: '',
+  component: RushComponent,
+  canActivate: [RushGuard],
+  children: [{
+    path: 'player',
+    component: PlayerComponent,
+    children: [
+      {path: '', redirectTo: 'overview', pathMatch: 'full'},
+      {path: 'box', component: PlayerBoxComponent},
+      {path: 'overview', component: PlayerOverviewComponent}
+    ]
+  }]
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

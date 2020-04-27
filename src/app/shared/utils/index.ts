@@ -1,3 +1,3 @@
 export * from './group.utils';
-export * from './rushUtils';
+export * from './rush.utils';
 export * from './settings.utils';

@@ -54,8 +54,9 @@
       "name": "Entrer votre nom (le même que IG de préférence)"
     },
     "rush": {
-      "create": "Créer un Rush",
-      "join": "Rejoindre un Rush",
+      "create": "Créer un rush",
+      "join": "Rejoindre un rush",
+      "launch": "Lancer un rush (solo)",
       "uuid": "Rush UUID",
       "hint": "Indiquer l'UUID du Rush que vous souhaitez rejoindre"
     }

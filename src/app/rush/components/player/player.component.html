@@ -1,0 +1,10 @@
+<mat-toolbar>
+  <mat-icon>person</mat-icon>
+  <span>{{ 'rush.player.title' | translate:player }}</span>
+</mat-toolbar>
+<a mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let tab of tabs"
+     [routerLink]="['/rush/player', tab]" routerLinkActive #rla [active]="rla.isActive">
+    {{ ('rush.player.' + tab) | translate }}
+  </a>
+</a>

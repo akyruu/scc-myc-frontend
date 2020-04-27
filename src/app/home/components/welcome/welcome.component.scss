@@ -10,6 +10,38 @@ $toolbarHeight: 64px;
   }
 
   .welcome-content {
+    .welcome-action-row {
+      &:not(:first-child) {
+        margin-top: .25em;
+      }
+
+      @include layout-bp(xs) {
+        & > .mat-button-base {
+          margin: 0;
+          width: 100%;
+
+          &:not(:first-child) {
+            margin-top: .25em;
+          }
+        }
+      }
+
+      @include layout-bp(gt-xs) {
+        display: flex;
+        align-items: stretch;
+        justify-items: stretch;
+
+        & > .mat-button-base {
+          flex: 1;
+          margin: 0;
+
+          &:not(:first-child) {
+            margin-left: .25em;
+          }
+        }
+      }
+    }
+
     @include layout-bp(lt-md) {
       & > * {
         margin: 1em;
@@ -23,7 +55,7 @@ $toolbarHeight: 64px;
       align-items: center;
 
       & > * {
-        width: 311px;
+        width: 400px;
       }
 
       & > * + * {
