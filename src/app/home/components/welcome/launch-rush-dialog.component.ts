@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 
 import {AppContext, LobbyPlayerSocket, LobbyRushSocket} from '../../../core';
-import {Player, Rush} from '../../../shared';
+import {Player, Rush, Vehicle} from '../../../shared';
 
 export interface LaunchRushData {
   player: Player;
@@ -16,7 +16,7 @@ export interface LaunchRushData {
 })
 export class LaunchRushDialogComponent {
   /* FIELDS ================================================================ */
-  vehicleName: string;
+  vehicle: Vehicle;
 
   /* CONSTRUCTOR =========================================================== */
   constructor(
@@ -30,14 +30,15 @@ export class LaunchRushDialogComponent {
 
   /* METHODS =============================================================== */
   async doSubmit(): Promise<void> {
-    if (this.vehicleName) {
-      await this._lobbyPlayerSocket.updatePlayerProps(this.data.player.name, {vehicleName: this.vehicleName});
+    if (this.vehicle) {
+      await this._lobbyPlayerSocket.updatePlayerProps(this.data.player.name, {vehicleName: this.vehicle.name});
+      this.data.player.vehicle = this.vehicle;
     }
 
     await this._lobbyRushSocket.launchRush();
     this._appContext.rush.launched = true;
 
-    this._router.navigate(['/rush']).then();
+    this._router.navigate(['/rush/player']).then();
     this.dialogRef.close();
   };
 

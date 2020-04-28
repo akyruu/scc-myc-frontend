@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule} from '@angular/router';
 
-import {PlayerBoxComponent, PlayerComponent, PlayerOverviewComponent, RushComponent} from './components';
+import {PlayerComponent, PlayerOverviewComponent, PlayerRucksackComponent, PlayerVehicleComponent, RushComponent} from './components';
 import {RushGuard} from './guards';
 
 const routes: Route[] = [{
@@ -13,8 +13,9 @@ const routes: Route[] = [{
     component: PlayerComponent,
     children: [
       {path: '', redirectTo: 'overview', pathMatch: 'full'},
-      {path: 'box', component: PlayerBoxComponent},
-      {path: 'overview', component: PlayerOverviewComponent}
+      {path: 'overview', component: PlayerOverviewComponent},
+      {path: 'rucksack', component: PlayerRucksackComponent},
+      {path: 'vehicle', component: PlayerVehicleComponent},
     ]
   }]
 }];

@@ -22,13 +22,15 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTreeModule} from '@angular/material/tree';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 
-import {ToolbarComponent} from './components';
+import {ListTreeItemComponent, ToolbarComponent} from './components';
 
 @NgModule({
   declarations: [
+    ListTreeItemComponent,
     ToolbarComponent
   ],
   imports: [
@@ -38,6 +40,7 @@ import {ToolbarComponent} from './components';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatListModule,
     MatToolbarModule,
   ],
   exports: [
@@ -67,8 +70,10 @@ import {ToolbarComponent} from './components';
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,
+    MatTreeModule,
     MatToolbarModule,
     // Application
+    ListTreeItemComponent,
     ToolbarComponent
   ]
 })

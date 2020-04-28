@@ -1,0 +1,31 @@
+@import '~@angular/flex-layout/mq';
+
+// Variables
+$pad: .5em;
+
+// Style
+.app-layout-resume {
+  @include layout-bp(xs) {
+    & > *:not(:first-child) {
+      margin-top: $pad;
+    }
+  }
+
+  @include layout-bp(gt-xs) {
+    display: flex;
+    align-items: stretch;
+
+    & > * {
+      width: 100%;
+
+      &:not(:first-child) {
+        margin-left: $pad;
+      }
+    }
+  }
+}
+
+.app-layout-table-form {
+  display: flex;
+  flex-wrap: wrap;
+}

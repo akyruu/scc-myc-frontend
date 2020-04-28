@@ -1,2 +1,67 @@
-<!-- TODO -->
-TODO player overview
+<div class="app-layout-resume">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>money</mat-icon>
+      </div>
+      <mat-card-title>{{ estimatedTotal }} {{ settings.unit.money }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.estimated.total' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card *ngIf="player.vehicle">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>flight</mat-icon>
+      </div>
+      <mat-card-title>{{ player.cargos.length }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.player.cargos' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>all_inbox</mat-icon>
+      </div>
+      <mat-card-title>{{ player.boxes.length }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.player.boxes' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+<div class="player-overview-boxes">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let box of player.boxes">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>inbox</mat-icon>
+          <span>{{ 'rush.player.box.name' | translate:box }}</span>
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ 'rush.estimated.value' | translate }}:
+          {{ getEstimatedBoxValue(box) }} {{ settings.unit.money }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <table mat-table [dataSource]="box.items" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'rush.player.box.item' | translate }}</th>
+          <td mat-cell *matCellDef="let boxItem">{{ boxItem.item.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>{{ 'rush.player.box.quantity' | translate }}</th>
+          <td mat-cell *matCellDef="let boxItem">{{ boxItem.quantity }}</td>
+        </ng-container>
+        <ng-container matColumnDef="unitPrice">
+          <th mat-header-cell *matHeaderCellDef>{{ 'rush.player.box.unitPrice' | translate }}</th>
+          <td mat-cell *matCellDef="let boxItem">{{ boxItem.item.price }}</td>
+        </ng-container>
+        <ng-container matColumnDef="estimatedValue">
+          <th mat-header-cell *matHeaderCellDef>{{ 'rush.estimated.value' | translate }}</th>
+          <td mat-cell *matCellDef="let boxItem">{{ getEstimatedBoxItemValue(boxItem) }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="boxColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: boxColumns"></tr>
+      </table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

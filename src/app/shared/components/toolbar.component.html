@@ -1,5 +1,9 @@
+<ng-template #sidenavIcon>
+  <mat-icon (click)="sidenav.open()">menu</mat-icon>
+</ng-template>
+
 <mat-toolbar color="primary">
-  <mat-icon svgIcon="pickaxe"></mat-icon>
+  <mat-icon svgIcon="pickaxe" *ngIf="!sidenav || sidenav.opened; else: sidenavIcon"></mat-icon>
   <span>{{ 'app.title' | translate }}</span>
   <ng-container *ngIf="menu">
     <span class="mat-spacer"></span>

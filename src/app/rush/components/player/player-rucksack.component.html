@@ -1,0 +1,77 @@
+<div class="app-layout-resume">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>money</mat-icon>
+      </div>
+      <mat-card-title>{{ estimatedTotal }} {{ settings.unit.money }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.estimated.total' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon svgIcon="ore"></mat-icon>
+      </div>
+      <mat-card-title>{{ countItems('ore') }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.player.rucksack.ore' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>eco</mat-icon>
+      </div>
+      <mat-card-title>{{ countItems('harvest') }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.player.rucksack.harvest' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>storage</mat-icon>
+      </div>
+      <mat-card-title>{{ percentRucksackFilled }} %</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.player.rucksack.filled' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+<button mat-raised-button color="primary" (click)="doMoveToBox()">
+  <mat-icon>move_to_inbox</mat-icon>
+  {{ 'rush.player.moveToBox' | translate }}
+</button>
+<div class="app-layout-table-form">
+  <mat-form-field *ngFor="let boxItem of player.rucksack?.items; let index = index">
+    <input matInput [name]="'item_' + index" type="number" required
+           min="0" max="99"
+           [(ngModel)]="boxItem.quantity"
+           [placeholder]="'rush.item.name' | translate:{item: boxItem.item, money: settings.unit.money}"/>
+    <mat-hint>{{ 'rush.item.hint' | translate:{
+      value: getEstimatedValue(boxItem),
+      money: settings.unit.money
+    } }}</mat-hint>
+    <mat-icon matSuffix svgIcon="ore" *ngIf="boxItem.type === 'ore'"></mat-icon>
+    <mat-icon matSuffix *ngIf="boxItem.type === 'harvest'">eco</mat-icon>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [placeholder]="'rush.item.label' | translate" [disabled]="!hasItems()"
+                (selectionChange)="doAddItem($event.value)">
+      <mat-optgroup *ngIf="ores.length > 0">
+        <mat-label>
+          <mat-icon svgIcon="ore"></mat-icon>
+          <span>{{ 'app.model.ore' | translate }}</span>
+        </mat-label>
+        <mat-option *ngFor="let ore of ores" [value]="{item: ore, type: 'ore'}">{{ ore.name }}</mat-option>
+      </mat-optgroup>
+      <mat-optgroup *ngIf="harvests.length > 0">
+        <mat-label>
+          <mat-icon>eco</mat-icon>
+          <span>{{ 'app.model.harvest' | translate }}</span>
+        </mat-label>
+        <mat-option *ngFor="let harvest of harvests"
+                    [value]="{item: harvest, type: 'harvest'}">{{ harvest.name }}</mat-option>
+      </mat-optgroup>
+    </mat-select>
+    <mat-hint>{{ ('rush.item.' + (hasItems() ? 'choose' : 'empty')) | translate }}</mat-hint>
+  </mat-form-field>
+</div>

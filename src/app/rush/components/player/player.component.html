@@ -1,10 +1,13 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <mat-icon>person</mat-icon>
   <span>{{ 'rush.player.title' | translate:player }}</span>
 </mat-toolbar>
-<a mat-tab-nav-bar>
+<nav mat-tab-nav-bar>
   <a mat-tab-link *ngFor="let tab of tabs"
-     [routerLink]="['/rush/player', tab]" routerLinkActive #rla [active]="rla.isActive">
-    {{ ('rush.player.' + tab) | translate }}
+     [routerLink]="['/rush/player', tab]" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+    {{ ('rush.player.tab.' + tab) | translate }}
   </a>
-</a>
+</nav>
+<div class="player-content">
+  <router-outlet></router-outlet>
+</div>

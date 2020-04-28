@@ -3,7 +3,9 @@
 @mixin app-theme($theme) {
   $primary: map-get($theme, primary);
 
-  .mat-list-item.active {
-    background-color: mat-color($primary) !important;
+  .mat-list-item {
+    &.active {
+      background-color: mat-color($primary, 500, .5) !important;
+    }
   }
 }

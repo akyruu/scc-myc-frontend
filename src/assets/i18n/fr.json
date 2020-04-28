@@ -15,6 +15,15 @@
       "more": "Plus...",
       "none": "-- Aucun --"
     },
+    "model": {
+      "name": "Nom",
+      "leader": "Leader",
+      "harvest": "Récoltable",
+      "ore": "Minerai",
+      "rush": "Rush",
+      "vehicle": "Véhicule",
+      "uuid": "UUID"
+    },
     "socket": {
       "error": "Une erreur inconnu est survenu. Veuillez contacter votre Administrateur (code: {{code}})"
     }
@@ -56,16 +65,58 @@
     "rush": {
       "create": "Créer un rush",
       "join": "Rejoindre un rush",
-      "launch": "Lancer un rush (solo)",
+      "launch": "Lancer un rush solo",
       "uuid": "Rush UUID",
       "hint": "Indiquer l'UUID du Rush que vous souhaitez rejoindre"
     }
   },
-  "model": {
-    "name": "Nom",
-    "leader": "Leader",
-    "rush": "Rush",
-    "vehicle": "Véhicule",
-    "uuid": "UUID"
+  "rush": {
+    "estimated": {
+      "value": "Valeur estimée",
+      "total": "Valeur totale estimée"
+    },
+    "item": {
+      "label": "Elément",
+      "name": "{{item.name}} (PU: {{item.price}} {{money}})",
+      "hint": "Valeur estimée: {{value}} {{money}}",
+      "choose": "Choisis un élement",
+      "empty": "Plus rien n'est disponible"
+    },
+    "menu": {
+      "multi": "Rush Multi",
+      "single": "Rush Solo"
+    },
+    "player": {
+      "title": "Joueur {{name}}",
+      "box": {
+        "name": "Boîte {{index}}",
+        "item": "Récoltable / Minerai",
+        "quantity": "Quantité",
+        "unitPrice": "P.U."
+      },
+      "boxes": "Boîtes",
+      "tab": {
+        "overview": "Vue d'ensemble",
+        "rucksack": "Sac à dos",
+        "vehicle": "Véhicule"
+      },
+      "rucksack": {
+        "filled": "Remplissage du sac",
+        "harvest": "Nombre de récoltables",
+        "ore": "Nombre de minerais"
+      },
+      "moveToBox": "Transfert vers boîte"
+    },
+    "vehicle": {
+      "cargo": {
+        "sales": "Vente du cargo",
+        "fragments": "Nombre de fragments",
+        "filled": "Remplissage du cargo"
+      },
+      "ore": {
+        "choose": "Choisis un minerai",
+        "empty": "Plus rien n'est disponible"
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 // TODO shared between frontend and backend
-export interface Ore {
+export class Ore {
   name: string;
   density: number;
   price: number;

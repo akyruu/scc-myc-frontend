@@ -1,33 +1,10 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <!-- TODO -->
-    <pre>TODO sidenav:
-[- global overview]: room.leader
-[- my group]: group.leader (see below)
-- my player
-  - overview
-  - boxes
-[- my group
-  - overview
-  - vehicle
-    - overview
-    - fragments
-  - others players
-    - overview
-    - boxes]: !group.leader
-[- overview]
-- groups
-  - overview
-  - vehicle
-    - overview
-    - fragments
-  - players
-    - overview
-    - boxes
-    </pre>
+  <mat-sidenav #sidenav mode="over">
+    <app-rush-menu [player]="player" [rush]="rush" [group]="group"></app-rush-menu>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-toolbar></app-toolbar>
+    <app-toolbar [sidenav]="sidenav"></app-toolbar>
+    <router-outlet></router-outlet>
     <!-- TODO -->
     <pre>TODO toolbar:
 - title: rush.name

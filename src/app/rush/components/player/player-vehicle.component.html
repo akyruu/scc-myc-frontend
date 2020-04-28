@@ -1,0 +1,56 @@
+<div class="app-layout-resume">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>money</mat-icon>
+      </div>
+      <mat-card-title>{{ estimatedTotal }} {{ settings.unit.money }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.estimated.total' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon svgIcon="ore"></mat-icon>
+      </div>
+      <mat-card-title>{{ player.cargo?.fragments.length || 0 }}</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.vehicle.cargo.fragments' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>storage</mat-icon>
+      </div>
+      <mat-card-title>{{ percentCargoFilled }} %</mat-card-title>
+      <mat-card-subtitle>{{ 'rush.vehicle.cargo.filled' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+<button mat-raised-button color="primary" (click)="doSalesCargo()">
+  <mat-icon>store</mat-icon>
+  {{ 'rush.vehicle.cargo.sales' | translate }}
+</button>
+<div class="app-layout-table-form">
+  <mat-form-field *ngFor="let boxItem of player.cargo?.fragment?.ores; let index = index">
+    <input matInput [name]="'item_' + index" type="number" required
+           min="0" max="99"
+           [(ngModel)]="boxItem.quantity"
+           [placeholder]="'TODO'"/>
+    <mat-hint>{{ 'TODO' }}</mat-hint>
+    <mat-icon matSuffix svgIcon="ore"></mat-icon>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [placeholder]="'app.model.ore' | translate" [disabled]="!hasItems()"
+                (selectionChange)="doAddFragmentOre($event.value)">
+      <mat-optgroup *ngIf="ores.length > 0">
+        <mat-label>
+          <mat-icon svgIcon="ore"></mat-icon>
+          <span>{{ 'app.model.ore' | translate }}</span>
+        </mat-label>
+        <mat-option *ngFor="let ore of ores" [value]="{item: ore, type: 'ore'}">{{ ore.name }}</mat-option>
+      </mat-optgroup>
+    </mat-select>
+    <mat-hint>{{ ('rush.vehicle.ore.' + (hasItems() ? 'choose' : 'empty')) | translate }}</mat-hint>
+  </mat-form-field>
+</div>

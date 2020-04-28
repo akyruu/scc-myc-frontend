@@ -1,9 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MediaObserver} from '@angular/flex-layout';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSidenav} from '@angular/material/sidenav';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
-import {LobbyGroupSocket} from '../../core/sockets';
+
+import {LobbyGroupSocket} from '../../core';
 import {Menu, MenuItem} from '../models';
 
 @Component({
@@ -13,6 +15,7 @@ import {Menu, MenuItem} from '../models';
 export class ToolbarComponent implements OnInit, OnDestroy {
   /* FIELDS ================================================================ */
   @Input() menu: Menu;
+  @Input() sidenav: MatSidenav;
 
   private _isRush = true;
   private _subscription: Subscription;

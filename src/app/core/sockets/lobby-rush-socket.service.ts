@@ -20,10 +20,10 @@ export class LobbyRushSocket {
    * The player is the leader of this rush.
    *
    * @param playerName Player's name (leader).
-   * @param solo Solo rush (one player only).
+   * @param single Single rush (one player only).
    */
-  createRush(playerName: string, solo: boolean): Promise<{ player: Player, rush: Rush }> {
-    this._socket.emit('lobby:rush:create', {playerName: playerName, solo: solo});
+  createRush(playerName: string, single: boolean): Promise<{ player: Player, rush: Rush }> {
+    this._socket.emit('lobby:rush:create', {playerName: playerName, single: single});
     return this._socket.fromOneTimeEvent<{ player: Player, rush: Rush }>('lobby:rush:created');
   }
 

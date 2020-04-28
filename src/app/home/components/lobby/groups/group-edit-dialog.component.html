@@ -3,11 +3,11 @@
   <div mat-dialog-content>
     <mat-form-field class="full-width">
       <input matInput name="name" [(ngModel)]="groupName"
-             [placeholder]="'model.name' | translate"/>
+             [placeholder]="'app.model.name' | translate"/>
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-select name="vehicle" [(ngModel)]="vehicleName"
-                  [placeholder]="'model.vehicle' | translate">
+                  [placeholder]="'app.model.vehicle' | translate">
         <mat-option>{{ 'app.common.none' | translate }}</mat-option>
         <mat-option *ngFor="let vehicle of data.settings.vehicles" [value]="vehicle.name">
           {{ 'home.lobby.vehicle' | translate:vehicle }}
@@ -16,7 +16,7 @@
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-select name="leader" [(ngModel)]="leaderName"
-                  [placeholder]="'model.leader' | translate">
+                  [placeholder]="'app.model.leader' | translate">
         <mat-option>{{ 'app.common.none' | translate }}</mat-option>
         <mat-option *ngFor="let player of data.group.players" [value]="player.name">
           {{ player.name }}

@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private _socketService: SocketService
   ) {
     this._initI18n();
-    this._initSvgIcons('pickaxe');
+    this._initSvgIcons('pickaxe', 'ore');
   }
 
   /* METHODS =============================================================== */
