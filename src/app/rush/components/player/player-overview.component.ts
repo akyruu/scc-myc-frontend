@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {AppContext} from '../../../core';
 import {Box, BoxItem, Player, Settings} from '../../../shared';
-import {RushService} from '../../services';
+import {RushCalculator} from '../../services';
 
 @Component({
   selector: 'app-player-overview',
@@ -18,7 +18,7 @@ export class PlayerOverviewComponent implements OnInit {
   /* CONSTRUCTOR =========================================================== */
   constructor(
     private _appContext: AppContext,
-    private _rushService: RushService
+    private _rushCalculator: RushCalculator
   ) {}
 
   /* METHODS =============================================================== */
@@ -29,14 +29,14 @@ export class PlayerOverviewComponent implements OnInit {
 
   /* View ------------------------------------------------------------------ */
   get estimatedTotal(): number {
-    return this._rushService.estimatePlayerValue(this.player);
+    return this._rushCalculator.estimatePlayerValue(this.player);
   }
 
   getEstimatedBoxValue(box: Box): number {
-    return this._rushService.estimateBoxValue(box);
+    return this._rushCalculator.estimateBoxValue(box);
   }
 
   getEstimatedBoxItemValue(boxItem: BoxItem): number {
-    return this._rushService.estimateBoxItemValue(boxItem);
+    return this._rushCalculator.estimateBoxItemValue(boxItem);
   }
 }

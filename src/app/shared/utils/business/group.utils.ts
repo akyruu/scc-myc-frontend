@@ -1,4 +1,5 @@
-import {Group, Player} from '../models';
+// Shared
+import {Group, Player} from '../../models';
 
 export class GroupUtils {
   /* STATIC METHODS ====================================================== */

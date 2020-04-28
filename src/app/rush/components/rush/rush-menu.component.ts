@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Group, NavItem, Player, Rush} from '../../shared';
+import {Group, NavItem, Player, Rush} from '../../../shared';
 
 @Component({
   selector: 'app-rush-menu',

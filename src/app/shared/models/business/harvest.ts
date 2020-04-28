@@ -1,4 +1,4 @@
-// TODO shared between frontend and backend
+// Shared
 export class Harvest {
   name: string;
   price: number;

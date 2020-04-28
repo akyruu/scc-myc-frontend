@@ -1,4 +1,6 @@
-import {Group, Player, Rush} from '../models';
+// Shared
+import {Group, Player, Rush} from '../../models';
+import {GroupUtils} from './group.utils';
 
 export class RushUtils {
   /* STATIC METHODS ====================================================== */
@@ -20,9 +22,39 @@ export class RushUtils {
     return rush.players.find(player => player.name === playerName);
   }
 
+  static findPlayerDeep(rush: Rush, playerName: string): Player {
+    let player = this.findPlayer(rush, playerName);
+    if (!player) {
+      for (const group of rush.groups) {
+        player = GroupUtils.findPlayer(group, playerName);
+        if (player) {
+          break;
+        }
+      }
+    }
+    return player;
+  }
+
   static deletePlayer(rush: Rush, playerName: string): Player | false {
     const index = rush.players.findIndex(player => player.name === playerName);
     return (index >= 0) ? rush.players.splice(index, 1)[0] : false;
+  }
+
+  /* All ------------------------------------------------------------------- */
+  static deletePlayerDeep(rush: Rush, playerName: string): void {
+    let player = this.deletePlayer(rush, playerName);
+    if (!player) {
+      for (const group of rush.groups) {
+        player = GroupUtils.deletePlayer(group, playerName);
+        if (player) {
+          break;
+        }
+      }
+    }
+  }
+
+  static isEmptyDeep(rush: Rush): boolean {
+    return rush.players.length === 0 && rush.groups.every(group => group.players.length === 0);
   }
 
   /* CONSTRUCTOR ========================================================= */

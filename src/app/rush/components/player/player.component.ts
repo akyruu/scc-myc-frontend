@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 import {AppContext} from '../../../core';
 import {Player} from '../../../shared';
+import {RushContext} from '../../services';
 
 @Component({
   selector: 'app-rush-player',
@@ -18,7 +20,9 @@ export class PlayerComponent implements OnInit {
   /* CONSTRUCTOR =========================================================== */
   constructor(
     private _router: Router,
-    private _appContext: AppContext
+    private _translate: TranslateService,
+    private _appContext: AppContext,
+    private _rushContext: RushContext
   ) {}
 
   /* METHODS =============================================================== */
@@ -27,5 +31,7 @@ export class PlayerComponent implements OnInit {
     if (!this.player.vehicle) {
       this.tabs.splice(this.tabs.indexOf('vehicle'), 1);
     }
+
+    setTimeout(() => this._rushContext.title.next(this._translate.instant('rush.player.title', this.player)), 0);
   }
 }

@@ -1,4 +1,4 @@
-// TODO shared between frontend and backend
+// Shared
 import {Fragment} from './fragment';
 import {Vehicle} from './vehicle';
 
@@ -7,5 +7,5 @@ export class Cargo {
   vehicle: Vehicle;
 
   fragment: Fragment;
-  fragments: Fragment[];
+  fragments: Fragment[] = [];
 }

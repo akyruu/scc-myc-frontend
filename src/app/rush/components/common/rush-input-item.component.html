@@ -1,0 +1,11 @@
+<mat-form-field appearance="outline">
+  <mat-label>
+    <app-rush-label-item [item]="item"></app-rush-label-item>
+  </mat-label>
+  <mat-hint>{{ 'rush.common.estimated.value' | translate }}: {{ estimatedValue | currency }}</mat-hint>
+  <input matInput name="item_quantity" type="number" min="0"
+         [(ngModel)]="quantity" (ngModelChange)="quantityChange.emit(quantity)"
+         [disabled]="disabled"/>
+  <span matPrefix *ngIf="percent">%&nbsp;</span>
+  <mat-icon matSuffix [svgIcon]="type"></mat-icon>
+</mat-form-field>

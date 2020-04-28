@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+  <mat-icon>{{ rush.single ? 'person' : 'group' }}</mat-icon>
+  <span>{{ 'rush.menu.' + (rush.single ? 'single' : 'multi') | translate }}</span>
+</mat-toolbar>
+<mat-nav-list>
+  <app-list-tree-item *ngFor="let item of items" [item]="item"></app-list-tree-item>
+</mat-nav-list>

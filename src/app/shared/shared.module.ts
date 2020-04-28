@@ -26,18 +26,25 @@ import {MatTreeModule} from '@angular/material/tree';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 
-import {ListTreeItemComponent, ToolbarComponent} from './components';
+import {ListTreeItemComponent, ResumeItemComponent, ResumeListComponent, ToolbarComponent} from './components';
+import {CurrencyPipe} from './pipes';
 
 @NgModule({
   declarations: [
+    // Components
     ListTreeItemComponent,
-    ToolbarComponent
+    ResumeItemComponent,
+    ResumeListComponent,
+    ToolbarComponent,
+    // Pipes
+    CurrencyPipe
   ],
   imports: [
     CommonModule,
     TranslateModule,
     // Material
     MatButtonModule,
+    MatCardModule,
     MatIconModule,
     MatMenuModule,
     MatListModule,
@@ -72,9 +79,13 @@ import {ListTreeItemComponent, ToolbarComponent} from './components';
     MatTabsModule,
     MatTreeModule,
     MatToolbarModule,
-    // Application
+    // Components
     ListTreeItemComponent,
-    ToolbarComponent
+    ResumeItemComponent,
+    ResumeListComponent,
+    ToolbarComponent,
+    // Pipes
+    CurrencyPipe
   ]
 })
 export class SharedModule {}

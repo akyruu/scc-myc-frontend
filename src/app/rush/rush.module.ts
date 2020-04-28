@@ -7,25 +7,36 @@ import {
   PlayerRucksackComponent,
   PlayerVehicleComponent,
   RushComponent,
-  RushMenuComponent
+  RushInputItemComponent,
+  RushLabelItemComponent,
+  RushMenuComponent,
+  RushSelectItemComponent
 } from './components';
 import {RushRountingModule} from './rush-rounting.module';
-import {RushService} from './services';
+import {RushCalculator, RushContext} from './services';
 
 @NgModule({
   declarations: [
-    RushComponent,
-    RushMenuComponent,
+    // Common
+    RushInputItemComponent,
+    RushLabelItemComponent,
+    RushSelectItemComponent,
     // Player
     PlayerComponent,
     PlayerOverviewComponent,
     PlayerRucksackComponent,
     PlayerVehicleComponent,
+    // Rush
+    RushComponent,
+    RushMenuComponent,
   ],
   imports: [
     RushRountingModule,
     SharedModule,
   ],
-  providers: [RushService]
+  providers: [
+    RushContext,
+    RushCalculator
+  ]
 })
 export class RushModule {}

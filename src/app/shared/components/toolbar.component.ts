@@ -14,6 +14,7 @@ import {Menu, MenuItem} from '../models';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   /* FIELDS ================================================================ */
+  @Input() title: string;
   @Input() menu: Menu;
   @Input() sidenav: MatSidenav;
 

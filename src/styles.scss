@@ -1,10 +1,19 @@
+// Bootstrap
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+// @import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/utilities';
+
+// Material
 @import '~@angular/flex-layout/mq';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~@angular/material/theming';
 
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-@import 'styles/layout';
 @import 'styles/theming';
 
 /* THEMING ================================================================= */
@@ -19,6 +28,7 @@ $theme: mat-dark-theme($primary, $accent);
 
 /* VARIABLES =============================================================== */
 $toolbarHeight: 64px;
+$floatActionMargin: 1.5em;
 
 /* STYLE =================================================================== */
 html, body {
@@ -31,6 +41,27 @@ body {
 }
 
 /* Application ------------------------------------------------------------- */
+.app-fab-bottom-right {
+  position: absolute !important;
+  right: $floatActionMargin;
+  bottom: $floatActionMargin;
+}
+
+.app-fab-group-bottom-right {
+  position: absolute;
+  right: $floatActionMargin;
+  bottom: $floatActionMargin;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > *:not(:first-child) {
+    margin-top: .5em;
+  }
+}
+
 .full-width {
   width: 100%;
 }
@@ -74,10 +105,6 @@ body {
 // Set size of mat-card-avatar to mat-icon
 .mat-card-avatar > .mat-icon {
   font-size: 40px;
-}
-
-.mat-form-field:not(.full-width) + .mat-form-field:not(.full-width) {
-  margin-left: 1em;
 }
 
 .mat-grid-tile > .mat-figure > .mat-card {

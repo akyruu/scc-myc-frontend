@@ -13,13 +13,17 @@
     },
     "common": {
       "more": "Plus...",
-      "none": "-- Aucun --"
+      "none": "-- Aucun --",
+      "overview": "Vue d'ensemble"
     },
     "model": {
-      "name": "Nom",
-      "leader": "Leader",
+      "fragment": "Fragment",
       "harvest": "Récoltable",
+      "leader": "Leader",
+      "mass": "Masse",
+      "name": "Nom",
       "ore": "Minerai",
+      "rucksack": "Sac à dos",
       "rush": "Rush",
       "vehicle": "Véhicule",
       "uuid": "UUID"
@@ -71,16 +75,18 @@
     }
   },
   "rush": {
-    "estimated": {
-      "value": "Valeur estimée",
-      "total": "Valeur totale estimée"
-    },
-    "item": {
-      "label": "Elément",
-      "name": "{{item.name}} (PU: {{item.price}} {{money}})",
-      "hint": "Valeur estimée: {{value}} {{money}}",
-      "choose": "Choisis un élement",
-      "empty": "Plus rien n'est disponible"
+    "common": {
+      "estimated": {
+        "value": "Valeur estimée",
+        "total": "Valeur totale estimée"
+      },
+      "item": {
+        "choose": "Choisir un élement",
+        "empty": "Plus d'élément disponible"
+      },
+      "price": {
+        "unit": "P.U."
+      }
     },
     "menu": {
       "multi": "Rush Multi",
@@ -90,9 +96,14 @@
       "title": "Joueur {{name}}",
       "box": {
         "name": "Boîte {{index}}",
-        "item": "Récoltable / Minerai",
         "quantity": "Quantité",
-        "unitPrice": "P.U."
+        "unitPrice": "P.U.",
+        "item": {
+          "label": "Récoltable/Minerai",
+          "name": "{{item.name}} (P.U.: {{item.price}} {{money}})",
+          "choose": "Choisir un élement",
+          "empty": "Plus rien n'est disponible"
+        }
       },
       "boxes": "Boîtes",
       "tab": {
@@ -102,14 +113,17 @@
       },
       "rucksack": {
         "filled": "Remplissage du sac",
-        "harvest": "Nombre de récoltables",
-        "ore": "Nombre de minerais"
+        "items": "Nombre de récoltables/minerais"
       },
       "moveToBox": "Transfert vers boîte"
     },
     "vehicle": {
       "cargo": {
         "sales": "Vente du cargo",
+        "fragment": {
+          "validate": "Valider le fragment",
+          "name": "Fragment #{{index}}"
+        },
         "fragments": "Nombre de fragments",
         "filled": "Remplissage du cargo"
       },

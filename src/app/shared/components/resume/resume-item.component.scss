@@ -1,0 +1,19 @@
+@import '~@angular/flex-layout/mq';
+
+.mat-card {
+  @include layout-bp(xs) {
+    margin-top: .5em;
+    padding: .25em .5em;
+
+    .mat-card-title {
+      font-size: small;
+    }
+  }
+  @include layout-bp(gt-sm) {
+    width: 100%;
+  }
+
+  .mat-card-subtitle {
+    margin-bottom: 0;
+  }
+}

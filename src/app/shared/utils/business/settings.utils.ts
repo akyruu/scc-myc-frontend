@@ -1,4 +1,5 @@
-import {Harvest, Ore, Settings, Vehicle} from '../models';
+// Shared
+import {Harvest, Ore, Settings, Vehicle} from '../../models';
 
 export class SettingsUtils {
   /* STATIC METHODS ====================================================== */
@@ -12,6 +13,10 @@ export class SettingsUtils {
 
   static findOre(settings: Settings, oreName: string): Ore {
     return settings.ores.find(ore => ore.name === oreName);
+  }
+
+  static findInertMaterialOre(settings: Settings) {
+    return this.findOre(settings, 'Inert Material');
   }
 
   static findVehicle(settings: Settings, vehicleName: string): Vehicle {

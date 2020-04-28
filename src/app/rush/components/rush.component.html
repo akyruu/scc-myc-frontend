@@ -3,24 +3,7 @@
     <app-rush-menu [player]="player" [rush]="rush" [group]="group"></app-rush-menu>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-toolbar [sidenav]="sidenav"></app-toolbar>
+    <app-toolbar [title]="title" [sidenav]="sidenav"></app-toolbar>
     <router-outlet></router-outlet>
-    <!-- TODO -->
-    <pre>TODO toolbar:
-- title: rush.name
-- uuid: rush.uuid
-- actions: finish, quit
-    </pre>
-    <pre>TODO content:
-- general overview [screen]
-- group [screen]
-  - overview [tab]
-- vehicle [screen]
-  - overview [tab]
-  - fragments [tab]
-- player [screen]
-  - overview [tab]
-  - boxes [tab]
-    </pre>
   </mat-sidenav-content>
 </mat-sidenav-container>

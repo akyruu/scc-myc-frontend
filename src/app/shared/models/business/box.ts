@@ -1,4 +1,4 @@
-// TODO shared between frontend and backend
+// Shared
 import {BoxItem} from './box-item';
 
 export class Box {

@@ -4,7 +4,7 @@
 
 <mat-toolbar color="primary">
   <mat-icon svgIcon="pickaxe" *ngIf="!sidenav || sidenav.opened; else: sidenavIcon"></mat-icon>
-  <span>{{ 'app.title' | translate }}</span>
+  <span>{{ title ? title : ('app.title' | translate) }}</span>
   <ng-container *ngIf="menu">
     <span class="mat-spacer"></span>
     <button mat-icon-button *ngFor="let item of actionItems"

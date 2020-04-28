@@ -4,18 +4,16 @@
 $pad: .5em;
 
 // Style
-.app-layout-resume {
+.resume-items {
   @include layout-bp(xs) {
-    & > *:not(:first-child) {
-      margin-top: $pad;
-    }
+    margin-top: -1 * $pad;
   }
 
   @include layout-bp(gt-xs) {
     display: flex;
     align-items: stretch;
 
-    & > * {
+    & > ::ng-deep * {
       width: 100%;
 
       &:not(:first-child) {
@@ -23,9 +21,4 @@ $pad: .5em;
       }
     }
   }
-}
-
-.app-layout-table-form {
-  display: flex;
-  flex-wrap: wrap;
 }

@@ -1,4 +1,4 @@
-// TODO shared between frontend and backend
+// Shared
 import {Harvest} from './harvest';
 import {Ore} from './ore';
 

@@ -1,0 +1,15 @@
+<mat-form-field>
+  <mat-label>{{ fieldLabel }}</mat-label>
+  <mat-select [disabled]="!hasItems" (selectionChange)="onSelectItem($event.value)">
+    <mat-optgroup *ngFor="let itemGroup of itemGroups">
+      <mat-label>
+        <mat-icon [svgIcon]="itemGroup.type"></mat-icon>
+        <span>{{ ('app.model.' + itemGroup.type) | translate }}</span>
+      </mat-label>
+      <mat-option *ngFor="let item of itemGroup.items" [value]="{item: item, type: itemGroup.type}">
+        <app-rush-label-item [item]="item"></app-rush-label-item>
+      </mat-option>
+    </mat-optgroup>
+  </mat-select>
+  <mat-hint>{{ ('rush.common.item.' + (hasItems ? 'choose' : 'empty')) | translate }}</mat-hint>
+</mat-form-field>

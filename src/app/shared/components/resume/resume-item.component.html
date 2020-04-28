@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+      <mat-icon [svgIcon]="svgIcon" *ngIf="svgIcon"></mat-icon>
+    </div>
+    <mat-card-title>
+      {{ currency ? (value | currency) : (value | number:'1.0-0') }}
+      <ng-container *ngIf="total">({{ ((value / total) * 100) | number:'1.0-0' }}%)</ng-container>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <ng-container *ngIf="label">{{ label }}</ng-container>
+      <ng-container *ngIf="transLabel">{{ transLabel | translate }}</ng-container>
+    </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

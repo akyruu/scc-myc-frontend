@@ -1,4 +1,4 @@
-// TODO shared between frontend and backend
+// Shared
 import {Box} from './box';
 import {Cargo} from './cargo';
 import {Vehicle} from './vehicle';

@@ -1,8 +1,7 @@
-// TODO shared between frontend and backend
+// Shared
 import {Ore} from './ore';
 
 export class FragmentOre {
   ore: Ore;
-  quantity = 0;
-  s;
+  percent: number;
 }
