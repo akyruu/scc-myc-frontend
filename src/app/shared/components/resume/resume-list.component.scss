@@ -4,7 +4,29 @@
 $pad: .5em;
 
 // Style
-.resume-items {
+
+@include layout-bp(xs) {
+  :host.resume-list-alt {
+    .resume-list {
+      display: flex;
+      flex-direction: row;
+
+      ::ng-deep .resume-item {
+        width: 100%;
+
+        &:not(:first-of-type) {
+          margin-left: .5em;
+        }
+
+        .mat-card-header-text {
+          margin-left: .5em;
+        }
+      }
+    }
+  }
+}
+
+.resume-list {
   @include layout-bp(xs) {
     margin-top: -1 * $pad;
   }

@@ -5,7 +5,7 @@ import {
   GroupEditDialogComponent,
   GroupsComponent,
   JoinRushDialogComponent,
-  LaunchRushDialogComponent,
+  LaunchSoloRushDialogComponent,
   LobbyComponent,
   LobbyDropListComponent,
   LobbyPlayersComponent,
@@ -24,7 +24,7 @@ import {LobbyService} from './services';
     GroupEditDialogComponent,
     // Welcome
     JoinRushDialogComponent,
-    LaunchRushDialogComponent,
+    LaunchSoloRushDialogComponent,
     WelcomeComponent,
   ],
   imports: [

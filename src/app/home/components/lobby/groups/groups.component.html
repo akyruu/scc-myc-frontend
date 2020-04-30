@@ -13,12 +13,11 @@
           </div>
           <mat-card-title>{{ group.name }}</mat-card-title>
           <mat-card-subtitle>
-            <ng-container *ngIf="group.vehicle">{{ 'home.lobby.vehicle' | translate:group.vehicle }}</ng-container>&nbsp;
+            <ng-container *ngIf="group.vehicle">{{ 'app.label.vehicle' | translate:group.vehicle }}</ng-container>&nbsp;
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <app-lobby-drop-list [players]="group.players" [group]="group"
-                               [player]="player" [rush]="rush"></app-lobby-drop-list>
+          <app-lobby-drop-list [players]="group.players" [group]="group"></app-lobby-drop-list>
         </mat-card-content>
         <mat-card-actions>
           <button mat-icon-button (click)="doEditGroup(group, index)" *ngIf="isRushLeader() || isGroupLeader(group)">

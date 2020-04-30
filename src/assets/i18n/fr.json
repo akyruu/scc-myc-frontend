@@ -12,23 +12,36 @@
       "validate": "Valider"
     },
     "common": {
+      "indexed": "{{name}} #{{index}}",
       "more": "Plus...",
       "none": "-- Aucun --",
-      "overview": "Vue d'ensemble"
+      "overview": "Vue d'ensemble",
+      "total": "Total",
+      "totalValue": "Valeur total"
+    },
+    "label": {
+      "vehicle": "{{name}} ({{cargo}} SCU)"
     },
     "model": {
+      "cargo": "Cargo",
       "fragment": "Fragment",
       "harvest": "Récoltable",
+      "item": "Element",
       "leader": "Leader",
       "mass": "Masse",
       "name": "Nom",
       "ore": "Minerai",
+      "quantity": "Quantité",
       "rucksack": "Sac à dos",
       "rush": "Rush",
       "vehicle": "Véhicule",
       "uuid": "UUID"
     },
     "socket": {
+      "connect": {
+        "success": "Connecté !",
+        "failed": "Impossible de se connecter au serveur. Veuillez réessayer plus tard ou contacter l'administrateur si le problème persiste"
+      },
       "error": "Une erreur inconnu est survenu. Veuillez contacter votre Administrateur (code: {{code}})"
     }
   },
@@ -59,8 +72,7 @@
         "title": "Liste des joueurs",
         "subtitle": "Répartition en équipes",
         "number": "Nombre de joueurs a effecté à une équipe"
-      },
-      "vehicle": "{{name}} ({{cargo}} SCU)"
+      }
     },
     "player": {
       "title": "Création d'un joueur",
@@ -80,6 +92,7 @@
         "value": "Valeur estimée",
         "total": "Valeur totale estimée"
       },
+      "storage": "Taux de remplissage",
       "item": {
         "choose": "Choisir un élement",
         "empty": "Plus d'élément disponible"
@@ -87,6 +100,9 @@
       "price": {
         "unit": "P.U."
       }
+    },
+    "group": {
+      "title": "{{name}}"
     },
     "menu": {
       "multi": "Rush Multi",
@@ -125,7 +141,7 @@
           "name": "Fragment #{{index}}"
         },
         "fragments": "Nombre de fragments",
-        "filled": "Remplissage du cargo"
+        "filled": "Capacité cargo"
       },
       "ore": {
         "choose": "Choisis un minerai",

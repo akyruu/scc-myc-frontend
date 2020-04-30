@@ -1,0 +1,16 @@
+@import '~@angular/flex-layout/mq';
+
+// TODO duplicated with rucksack
+.cargo-content {
+  @include layout-bp(xs) {
+    ::ng-deep .mat-form-field {
+      display: block;
+      margin-top: 1em;
+    }
+  }
+
+  @include layout-bp(gt-sm) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

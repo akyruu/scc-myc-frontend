@@ -1,0 +1,22 @@
+<app-rush-container [title]="'rush.player.title' | translate:player">
+  <nav mat-tab-nav-bar backgroundColor="primary">
+    <a mat-tab-link routerLink="overview"
+       routerLinkActive #overviewRla="routerLinkActive" [active]="overviewRla.isActive">
+      <mat-icon>dashboard</mat-icon>
+      <span>{{ 'app.common.overview' | translate }}</span>
+    </a>
+    <a mat-tab-link routerLink="vehicle" *ngIf="player.vehicle"
+       routerLinkActive #vehicleRla="routerLinkActive" [active]="vehicleRla.isActive">
+      <mat-icon>flight</mat-icon>
+      <span>{{ player.vehicle.name }}</span>
+    </a>
+    <a mat-tab-link routerLink="rucksack"
+       routerLinkActive #rucksackRla="routerLinkActive" [active]="rucksackRla.isActive">
+      <mat-icon>inbox</mat-icon>
+      <span>{{ 'app.model.rucksack' | translate }}</span>
+    </a>
+  </nav>
+  <div class="player-content">
+    <router-outlet></router-outlet>
+  </div>
+</app-rush-container>

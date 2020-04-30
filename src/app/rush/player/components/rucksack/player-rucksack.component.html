@@ -1,0 +1,29 @@
+<app-resume-list>
+  <app-resume-item icon="money" label="@rush.common.estimated.total" mode="currency"
+                   [value]="estimatedTotal"></app-resume-item>
+  <app-resume-item icon="all_inbox" label="@rush.player.boxes"
+                   [value]="boxes.length" [addedValue]="rucksack.calculated.quantity > 0 ? 1 : 0"></app-resume-item>
+</app-resume-list>
+<div class="player-rucksack-content">
+  <app-title title="@app.model.rucksack" [subtitle]="rucksack.calculated.value | currency">
+    <mat-card-title>
+      <mat-icon>storage</mat-icon>
+    </mat-card-title>
+    <mat-card-subtitle [title]="'rush.common.storage' | translate">
+      {{ rucksack.calculated.quantity }} ({{ (rucksack.calculated.quantity / rucksack.maxQuantity) | percent}})
+    </mat-card-subtitle>
+  </app-title>
+  <app-rush-input-item *ngFor="let boxItem of rucksack.items"
+                       [item]="boxItem.item" [type]="boxItem.type"
+                       [(quantity)]="boxItem.quantity" (quantityChange)="doUpdateBoxItem(boxItem)"
+                       [estimatedValue]="boxItem.calculated.value"></app-rush-input-item>
+  <app-rush-select-item [itemGroups]="itemGroups"
+                        (selectionChange)="doAddBoxItem($event)"></app-rush-select-item>
+</div>
+<button mat-fab color="accent" class="app-fab-bottom-right"
+        [title]="'rush.player.moveToBox' | translate"
+        [attr.aria-label]="'rush.player.moveToBox' | translate"
+        [disabled]="rucksack.calculated.quantity === 0"
+        (click)="doMoveToBox()">
+  <mat-icon>move_to_inbox</mat-icon>
+</button>

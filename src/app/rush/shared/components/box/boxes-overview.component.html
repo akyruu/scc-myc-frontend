@@ -1,0 +1,27 @@
+<mat-toolbar>{{ 'rush.player.boxes' | translate }}</mat-toolbar>
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="estimatedValue">
+    <mat-header-cell *matHeaderCellDef>{{ 'rush.common.estimated.value' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.estimatedValue | currency:null:'' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ total.estimatedValue | currency:null:'' }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>{{ 'app.model.item' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.item.name }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ 'app.common.total' | translate }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef>{{ 'app.model.quantity' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.quantity | quantity:null:'' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ total.quantity  | quantity:null:'' }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="unitPrice">
+    <mat-header-cell *matHeaderCellDef>{{ 'rush.common.price.unit' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.item.price | currency:null:'':'1.0-0' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef><!-- Nothing here --></mat-footer-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <mat-footer-row *matFooterRowDef="columns"></mat-footer-row>
+</mat-table>

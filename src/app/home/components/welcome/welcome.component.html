@@ -1,4 +1,6 @@
-<app-toolbar></app-toolbar>
+<app-navbar></app-navbar>
+<mat-progress-bar *ngIf="loading" mode="query"></mat-progress-bar>
+
 <div class="welcome-content">
   <form #form="ngForm">
     <mat-card>
@@ -9,26 +11,26 @@
       <mat-card-content>
         <mat-form-field [hintLabel]="'home.player.name' | translate">
           <input matInput name="name" [required]="true"
-                 [(ngModel)]="playerName"
+                 [(ngModel)]="playerName" [disabled]="loading"
                  [placeholder]="'app.model.name' | translate"/>
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
         <div class="welcome-action-row">
           <button mat-raised-button color="primary" type="button"
-                  [disabled]="form.invalid" (click)="doCreateRush()">
+                  [disabled]="form.invalid || loading" (click)="doCreateRush()">
             <mat-icon>group</mat-icon>
             {{ 'home.rush.create' | translate }}
           </button>
           <button mat-raised-button color="primary" type="button"
-                  [disabled]="form.invalid" (click)="doLaunchRush()">
+                  [disabled]="form.invalid || loading" (click)="doLaunchSoloRush()">
             <mat-icon>person</mat-icon>
             {{ 'home.rush.launch' | translate }}
           </button>
         </div>
         <div class="welcome-action-row">
           <button mat-raised-button color="accent" type="button"
-                  [disabled]="form.invalid" (click)="doJoinRush()">
+                  [disabled]="form.invalid || loading" (click)="doJoinRush()">
             <mat-icon>person_add</mat-icon>
             {{ 'home.rush.join' | translate }}
           </button>

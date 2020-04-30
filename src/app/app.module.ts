@@ -13,7 +13,7 @@ import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared';
-import {DEFAULT_CURRENCY_FORMAT} from './shared/pipes';
+import {DEFAULT_CURRENCY_FORMAT, DEFAULT_QUANTITY_CODE, DEFAULT_QUANTITY_FORMAT} from './shared/pipes';
 
 /* FUNCTIONS =============================================================== */
 registerLocaleData(localeFr, 'fr');
@@ -33,9 +33,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     SocketIoModule.forRoot({
       url: environment.socket.url,
-      options: {
-        autoConnect: true
-      }
+      options: environment.socket.options
     }),
     TranslateModule.forRoot({
       loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient]}
@@ -46,6 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     {provide: DEFAULT_CURRENCY_CODE, useValue: 'aUEC'},
     {provide: DEFAULT_CURRENCY_FORMAT, useValue: '1.0-0'},
+    {provide: DEFAULT_QUANTITY_CODE, useValue: 'SCU'},
+    {provide: DEFAULT_QUANTITY_FORMAT, useValue: '1.0-0'},
     {provide: LOCALE_ID, useValue: 'fr-FR'}
   ],
   bootstrap: [AppComponent]

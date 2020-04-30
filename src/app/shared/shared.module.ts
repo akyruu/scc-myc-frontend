@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -26,8 +27,8 @@ import {MatTreeModule} from '@angular/material/tree';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 
-import {ListTreeItemComponent, ResumeItemComponent, ResumeListComponent, ToolbarComponent} from './components';
-import {CurrencyPipe} from './pipes';
+import {ListTreeItemComponent, NavbarComponent, ResumeItemComponent, ResumeListComponent, TitleComponent} from './components';
+import {CurrencyPipe, LabelPipe, QuantityPipe} from './pipes';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,12 @@ import {CurrencyPipe} from './pipes';
     ListTreeItemComponent,
     ResumeItemComponent,
     ResumeListComponent,
-    ToolbarComponent,
+    TitleComponent,
+    NavbarComponent,
     // Pipes
-    CurrencyPipe
+    CurrencyPipe,
+    LabelPipe,
+    QuantityPipe
   ],
   imports: [
     CommonModule,
@@ -48,6 +52,7 @@ import {CurrencyPipe} from './pipes';
     MatIconModule,
     MatMenuModule,
     MatListModule,
+    MatProgressBarModule,
     MatToolbarModule,
   ],
   exports: [
@@ -72,6 +77,7 @@ import {CurrencyPipe} from './pipes';
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatProgressBarModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
@@ -83,9 +89,12 @@ import {CurrencyPipe} from './pipes';
     ListTreeItemComponent,
     ResumeItemComponent,
     ResumeListComponent,
-    ToolbarComponent,
+    TitleComponent,
+    NavbarComponent,
     // Pipes
-    CurrencyPipe
+    CurrencyPipe,
+    LabelPipe,
+    QuantityPipe
   ]
 })
 export class SharedModule {}

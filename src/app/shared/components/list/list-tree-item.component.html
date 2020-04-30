@@ -4,9 +4,7 @@
   {{ item.name }}
   <span fxFlex *ngIf="item.children && item.children.length">
     <span fxFlex></span>
-    <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
-      expand_more
-    </mat-icon>
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">expand_more</mat-icon>
   </span>
 </a>
 <div *ngIf="expanded">

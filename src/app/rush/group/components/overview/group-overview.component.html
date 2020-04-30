@@ -1,0 +1,12 @@
+<app-resume-list>
+  <app-resume-item icon="money" label="@rush.common.estimated.total"
+                   [value]="estimatedTotal" mode="currency"></app-resume-item>
+  <app-resume-item icon="flight" [label]="{key: 'app.label.vehicle', args: group.vehicle}" *ngIf="group.vehicle"
+                   [value]="group.cargo?.calculated.quantity || 0" [total]="group.vehicle.cargo"
+                   mode="quantity"></app-resume-item>
+  <app-resume-item icon="all_inbox" label="@rush.player.boxes"
+                   [value]="boxCount"
+                   [addedValue]="rucksackCount"></app-resume-item>
+</app-resume-list>
+<app-vehicle-cargo-overview *ngIf="group.vehicle" [owner]="group"></app-vehicle-cargo-overview>
+<app-boxes-overview [boxes]="boxes"></app-boxes-overview>

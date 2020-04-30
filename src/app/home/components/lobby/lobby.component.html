@@ -1,13 +1,15 @@
-<app-toolbar [menu]="menu"></app-toolbar>
-<mat-toolbar color="primary">
-  <mat-icon>domain_icon</mat-icon>
-  <span>{{ 'home.lobby.title' | translate }}</span>
-  <span class="mat-spacer"></span>
-  <span>{{ 'app.model.uuid' | translate }}<span fxHide.xs>: {{ rush.uuid }}</span></span>
-  <button mat-icon-button [cdkCopyToClipboard]="rush.uuid">
-    <mat-icon>file_copy</mat-icon>
-  </button>
-</mat-toolbar>
+<app-navbar [menu]="menu">
+  <ng-template #title>
+    <mat-icon>domain_icon</mat-icon>
+    <span>{{ 'home.lobby.title' | translate }}</span>
+  </ng-template>
+  <ng-template #actions>
+    <span>{{ 'app.model.uuid' | translate }}<span fxHide.xs>: {{ rush.uuid }}</span></span>
+    <button mat-icon-button [cdkCopyToClipboard]="rush.uuid">
+      <mat-icon>file_copy</mat-icon>
+    </button>
+  </ng-template>
+</app-navbar>
 
 <div cdkDropListGroup class="lobby-content fullscreen">
   <div class="lobby-content-left">

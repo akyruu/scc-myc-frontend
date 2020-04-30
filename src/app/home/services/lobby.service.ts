@@ -38,7 +38,14 @@ export class LobbyService {
       this._lobbyRushSocket.playerLeaved.subscribe(playerName => RushUtils.deletePlayer(this.rush, playerName)),
       this._lobbyRushSocket.rushLaunched.subscribe(() => {
         this.rush.launched = true;
-        this._router.navigate(['/rush']).then();
+
+        let path = '/rush/my-player';
+        if (this.player.name === this.rush.leader?.name) {
+          path = '/rush/overview';
+        } else if (this.player.name === this.group?.leader?.name) {
+          path = '/rush/my-group';
+        }
+        this._router.navigate([path]).then();
       })
     ];
   };
@@ -78,7 +85,7 @@ export class LobbyService {
         const player = RushUtils.deletePlayer(this.rush, data.playerName);
         if (player) { // Check already executed
           group.players.push(player);
-          if (player === this.player) {
+          if (player.name === this.player.name) {
             this.group = group;
           }
         }
@@ -88,7 +95,7 @@ export class LobbyService {
         const player = GroupUtils.deletePlayer(group, data.playerName);
         if (player) { // Check already executed
           this.rush.players.push(player);
-          if (player === this.player) {
+          if (player.name === this.player.name) {
             this.group = null;
           }
         }
@@ -99,7 +106,7 @@ export class LobbyService {
         const player = GroupUtils.deletePlayer(oldGroup, data.playerName);
         if (player) { // Check already executed
           newGroup.players.push(player);
-          if (player === this.player) {
+          if (player.name === this.player.name) {
             this.group = newGroup;
           }
         }

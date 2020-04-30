@@ -1,42 +1,16 @@
 import {NgModule} from '@angular/core';
 
-import {SharedModule} from '../shared';
-import {
-  PlayerComponent,
-  PlayerOverviewComponent,
-  PlayerRucksackComponent,
-  PlayerVehicleComponent,
-  RushComponent,
-  RushInputItemComponent,
-  RushLabelItemComponent,
-  RushMenuComponent,
-  RushSelectItemComponent
-} from './components';
+import {RushOverviewComponent} from './core';
 import {RushRountingModule} from './rush-rounting.module';
-import {RushCalculator, RushContext} from './services';
+import {RushSharedModule} from './shared';
 
 @NgModule({
   declarations: [
-    // Common
-    RushInputItemComponent,
-    RushLabelItemComponent,
-    RushSelectItemComponent,
-    // Player
-    PlayerComponent,
-    PlayerOverviewComponent,
-    PlayerRucksackComponent,
-    PlayerVehicleComponent,
-    // Rush
-    RushComponent,
-    RushMenuComponent,
+    RushOverviewComponent,
   ],
   imports: [
-    RushRountingModule,
-    SharedModule,
-  ],
-  providers: [
-    RushContext,
-    RushCalculator
+    RushSharedModule,
+    RushRountingModule
   ]
 })
 export class RushModule {}

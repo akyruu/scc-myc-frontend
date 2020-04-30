@@ -1,0 +1,29 @@
+<app-resume-list>
+  <app-resume-item icon="money" label="@rush.common.estimated.total" mode="currency"
+                   [value]="cargo.calculated.value"></app-resume-item>
+  <app-resume-item icon="storage" label="@rush.vehicle.cargo.filled"
+                   [value]="cargo.calculated.quantity" [total]="cargo.vehicle.cargo" mode="quantity"></app-resume-item>
+</app-resume-list>
+<div class="cargo-content">
+  <app-title [title]="{key: 'app.common.indexed', args:{name: 'app.model.fragment' | translate, index: fragment.index}}"
+             [subtitle]="fragment.calculated.value | currency">
+    <mat-form-field>
+      <input matInput name="mass" min="0" max="99"
+             [(ngModel)]="fragment.mass" (ngModelChange)="doUpdateFragment()"
+             [placeholder]="'app.model.mass' | translate"/>
+    </mat-form-field>
+  </app-title>
+  <app-rush-input-item *ngFor="let fragmentOre of fragment.ores"
+                       [item]="fragmentOre.ore" type="ore" [percent]="true"
+                       [(quantity)]="fragmentOre.percent" (quantityChange)="doUpdateFragmentOre(fragmentOre)"
+                       [estimatedValue]="fragmentOre.calculated.value"></app-rush-input-item>
+  <app-rush-select-item [itemGroups]="itemGroups"
+                        (selectionChange)="doAddFragmentOre($event.item)"></app-rush-select-item>
+</div>
+<button mat-fab color="accent" class="app-fab-bottom-right"
+        [title]="'rush.vehicle.cargo.fragment.validate' | translate"
+        [attr.aria-label]="'rush.vehicle.cargo.fragment.validate' | translate"
+        [disabled]="!(fragment.mass > 0)"
+        (click)="doValidateFragment()">
+  <mat-icon>check</mat-icon>
+</button>

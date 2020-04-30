@@ -1,4 +1,5 @@
 import {Component, HostBinding, Input} from '@angular/core';
+import {Icon, Label} from '../../models/view';
 
 @Component({
   selector: 'app-resume-item',
@@ -6,15 +7,14 @@ import {Component, HostBinding, Input} from '@angular/core';
   styleUrls: ['./resume-item.component.scss']
 })
 export class ResumeItemComponent {
-  @Input() icon: string;
-  @Input() svgIcon: string;
-
-  @Input() label: string;
-  @Input() transLabel: string;
+  @Input() icon: Icon;
+  @Input() label: Label;
 
   @Input() value: number;
   @Input() total: number;
-  @Input() currency: boolean;
+  @Input() addedValue: number;
+  @Input() tmpValue: number;
+  @Input() mode: 'currency' | 'quantity';
 
   @HostBinding('attr.class') className = 'resume-item';
 }

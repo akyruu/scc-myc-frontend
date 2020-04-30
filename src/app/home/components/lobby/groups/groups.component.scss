@@ -2,6 +2,10 @@
   max-height: 100%;
   overflow-y: auto;
 
+  .mat-card-content {
+    margin-bottom: 0;
+  }
+
   ::ng-deep .lobby-drop-list {
     min-height: calc(100% - 2px); // 2px for border
   }

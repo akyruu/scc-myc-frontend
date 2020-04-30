@@ -1,0 +1,21 @@
+@import '~@angular/flex-layout/mq';
+
+.mat-toolbar {
+  margin-top: 1em;
+  padding: 2em .5em;
+
+  & > div {
+    padding-top: 1em;
+    width: 100%;
+
+    &.title-right {
+      text-align: right;
+      width: 50%;
+
+      & > ::ng-deep .mat-form-field {
+        margin-top: 0;
+        text-align: right;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<app-rush-container [title]="'rush.group.title' | translate:group">
+  <nav mat-tab-nav-bar backgroundColor="primary">
+    <a mat-tab-link routerLink="overview"
+       routerLinkActive #overviewRla="routerLinkActive" [active]="overviewRla.isActive">
+      <mat-icon>dashboard</mat-icon>
+      <span>{{ 'app.common.overview' | translate }}</span>
+    </a>
+    <a mat-tab-link routerLink="vehicle" *ngIf="group.vehicle"
+       routerLinkActive #vehicleRla="routerLinkActive" [active]="vehicleRla.isActive">
+      <mat-icon>flight</mat-icon>
+      <span>{{ group.vehicle.name }}</span>
+    </a>
+  </nav>
+  <div class="group-content">
+    <router-outlet></router-outlet>
+  </div>
+</app-rush-container>

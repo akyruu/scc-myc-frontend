@@ -1,0 +1,32 @@
+<ng-template #sidenavIcon>
+  <mat-icon (click)="sidenav.open()">menu</mat-icon>
+</ng-template>
+
+<mat-toolbar color="primary">
+  <ng-container *ngIf="!titleRef; else: titleRef">
+    <mat-icon svgIcon="pickaxe" *ngIf="!sidenav || sidenav.opened; else: sidenavIcon"></mat-icon>
+    <span>{{ title ? title : ('app.title' | translate) }}</span>
+  </ng-container>
+  <ng-container *ngIf="menu || actionsRef">
+    <span class="mat-spacer"></span>
+    <ng-container *ngTemplateOutlet="actionsRef"></ng-container>
+    <button mat-icon-button *ngFor="let item of actionItems"
+            [title]="item.name | translate" [disabled]="isItemDisabled(item)"
+            (click)="onClick(item)">
+      <mat-icon>{{ item.icon }}</mat-icon>
+    </button>
+    <ng-container *ngIf="otherItems.length > 0">
+      <button mat-icon-button [matMenuTriggerFor]="menu" [title]="'app.common.more' | translate">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu>
+        <button mat-menu-item *ngFor="let item of otherItems"
+                [disabled]="isItemDisabled(item)"
+                (click)="onClick(item)">
+          <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+          <span>{{ item.name | translate }}</span>
+        </button>
+      </mat-menu>
+    </ng-container>
+  </ng-container>
+</mat-toolbar>

@@ -1,0 +1,9 @@
+.mat-toolbar {
+  margin-top: .5em;
+}
+
+.mat-table ::ng-deep {
+  .mat-header-cell:first-of-type, .mat-cell:first-of-type {
+    padding-left: .5em;
+  }
+}

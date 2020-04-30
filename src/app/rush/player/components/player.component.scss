@@ -1,0 +1,15 @@
+@import '../../../../../node_modules/@angular/flex-layout/mq';
+
+.mat-tab-link {
+  @include layout-bp(xs) {
+    width: 100%;
+
+    & > span {
+      display: none;
+    }
+  }
+}
+
+.player-content {
+  padding: 1em;
+}

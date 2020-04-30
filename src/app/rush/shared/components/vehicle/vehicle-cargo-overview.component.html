@@ -1,0 +1,37 @@
+<mat-toolbar>{{ 'app.label.vehicle' | translate:vehicle }}</mat-toolbar>
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="cargoPercent">
+    <mat-header-cell *matHeaderCellDef>{{ 'app.model.cargo' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.cargoPercent | percent:'1.2-2' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ total.cargoPercent | percent:'1.2-2' }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="estimatedValue">
+    <mat-header-cell *matHeaderCellDef>{{ 'rush.common.estimated.value' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.estimatedValue | currency:null:'' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ total.estimatedValue | currency:null:'' }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="mass">
+    <mat-header-cell *matHeaderCellDef>{{ 'app.model.mass' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.mass | number:'1.2-2' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ total.mass | number:'1.2-2' }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>{{ 'app.model.ore' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.ore.name }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ 'app.common.total' | translate }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef>{{ 'app.model.quantity' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.quantity | quantity:null:'' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef>{{ total.quantity  | quantity:null:'' }}</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="unitPrice">
+    <mat-header-cell *matHeaderCellDef>{{ 'rush.common.price.unit' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data">{{ data.ore.price | currency:null:'':'1.2-2' }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef><!-- Nothing here --></mat-footer-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <mat-footer-row *matFooterRowDef="columns"></mat-footer-row>
+</mat-table>
