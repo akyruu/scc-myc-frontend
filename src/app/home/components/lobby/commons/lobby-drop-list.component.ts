@@ -1,4 +1,4 @@
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Component, Input, Optional} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 
@@ -48,24 +48,22 @@ export class LobbyDropListComponent {
   /* Events ---------------------------------------------------------------- */
   doDropPlayer(event: CdkDragDrop<Group>): void {
     const group = event.container.data;
-    if (event.previousContainer === event.container) {
-      moveItemInArray((group || this._appContext.rush).players, event.previousIndex, event.currentIndex); // Ignored
-    } else {
+    if (event.previousContainer !== event.container) {
       const prevGroup = event.previousContainer.data;
       transferArrayItem(
         (prevGroup || this._appContext.rush).players, (group || this._appContext.rush).players,
         event.previousIndex, event.currentIndex
       );
 
-      const player: Player = event.item.data;
+      const player = <Player>event.item.data;
       if (prevGroup) {
         if (group) {
-          this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.name, group.name);
+          this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.index, group.index);
         } else {
-          this._lobbyGroupSocket.removePlayer(player.name, prevGroup.name);
+          this._lobbyGroupSocket.removePlayer(player.name, prevGroup.index);
         }
       } else if (group) {
-        this._lobbyGroupSocket.addPlayer(player.name, group.name);
+        this._lobbyGroupSocket.addPlayer(player.name, group.index);
       }
 
       if (player.name === this._appContext.player.name) {
@@ -77,6 +75,6 @@ export class LobbyDropListComponent {
   doRemovePlayer(player: Player, index: number) {
     this.group.players.splice(index, 1);
     this._appContext.rush.players.push(player);
-    this._lobbyGroupSocket.removePlayer(player.name, this.group.name);
+    this._lobbyGroupSocket.removePlayer(player.name, this.group.index);
   }
 }

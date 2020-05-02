@@ -1,4 +1,4 @@
-<app-rush-container [title]="'rush.player.title' | translate:player">
+<app-rush-container [title]="player | label">
   <nav mat-tab-nav-bar backgroundColor="primary">
     <a mat-tab-link routerLink="overview"
        routerLinkActive #overviewRla="routerLinkActive" [active]="overviewRla.isActive">

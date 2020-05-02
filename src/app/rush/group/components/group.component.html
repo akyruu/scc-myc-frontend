@@ -1,4 +1,4 @@
-<app-rush-container [title]="'rush.group.title' | translate:group">
+<app-rush-container [title]="group | label">
   <nav mat-tab-nav-bar backgroundColor="primary">
     <a mat-tab-link routerLink="overview"
        routerLinkActive #overviewRla="routerLinkActive" [active]="overviewRla.isActive">

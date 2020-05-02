@@ -1,4 +1,71 @@
-<app-rush-container>
-  <!-- TODO -->
-  // TODO Rush Overview
+<ng-template #cargo let-vehicle="vehicle" let-cargo="cargo">
+  <h3>{{ 'app.model.cargo' | translate }}</h3>
+  <div class="row">
+    <div class="col">
+      {{ (cargo?.calculated.quantity || 0) | quantity:null:'' }} / {{ vehicle.cargo | quantity }}
+      ({{ (cargo?.calculated.percent || 0) | percent:'1.0-0' }})
+    </div>
+    <div class="col text-right">
+      {{ (cargo?.calculated.value || 0) | currency }}
+    </div>
+  </div>
+  <mat-progress-bar mode="determinate" [value]="(cargo?.calculated.percent || 0) * 100"></mat-progress-bar>
+</ng-template>
+
+<app-rush-container [title]="('app.model.rush' | translate) + ' - ' + ('app.common.overview' | translate)">
+  <mat-card *ngFor="let wrapper of groupWrappers; let gIndex = index;">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>group</mat-icon>
+      </div>
+      <mat-card-title>{{ wrapper.group | label }}</mat-card-title>
+      <mat-card-subtitle *ngIf="wrapper.group.vehicle">{{ wrapper.group.vehicle | label }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <h3>{{ 'rush.group.crew' | translate }}</h3>
+      <mat-chip-list>
+        <a mat-chip *ngFor="let player of wrapper.group.players; let pIndex = index"
+           [routerLink]="['/rush/group', gIndex, 'player', pIndex]">
+          {{ player | label }}
+        </a>
+      </mat-chip-list>
+      <ng-container *ngIf="wrapper.group.vehicle">
+        <ng-container *ngTemplateOutlet="cargo; context: wrapper.group"></ng-container>
+      </ng-container>
+      <h3>{{ 'rush.player.boxes' | translate }}</h3>
+      <div class="row no-gutters">
+        <div class="col-8">
+          {{ wrapper.boxes }}
+          <ng-container *ngIf="wrapper.rucksacks > 0"> (+{{wrapper.rucksacks}})</ng-container>
+        </div>
+        <div class="col-4 text-right">
+          {{ wrapper.boxesAndRucksacksValue | currency }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngFor="let wrapper of playerWrappers">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>group</mat-icon>
+      </div>
+      <mat-card-title>{{ wrapper.player | label }}</mat-card-title>
+      <mat-card-subtitle *ngIf="wrapper.player.vehicle">{{ wrapper.player.vehicle | label }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="wrapper.player.vehicle">
+        <ng-container *ngTemplateOutlet="cargo; context: wrapper.player"></ng-container>
+      </ng-container>
+    </mat-card-content>
+    <h3>{{ 'rush.player.boxes' | translate }}</h3>
+    <div class="row no-gutters">
+      <div class="col-8">
+        {{ wrapper.player.boxes.length }}
+        <ng-container *ngIf="wrapper.player.rucksack?.calculated.quantity > 0"> (+1)</ng-container>
+      </div>
+      <div class="col-4 text-right">
+        {{ wrapper.boxesAndRucksackValue | currency }}
+      </div>
+    </div>
+  </mat-card>
 </app-rush-container>

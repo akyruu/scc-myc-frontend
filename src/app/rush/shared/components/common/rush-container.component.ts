@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
 import {AppContext} from '../../../../core';
-import {Group, Label, NavItem, Player, Rush} from '../../../../shared';
+import {Group, GroupUtils, Label, NavItem, Player, Rush, RushUtils} from '../../../../shared';
 
 @Component({
   selector: 'app-rush-container',
@@ -36,15 +36,17 @@ export class RushContainerComponent implements OnInit {
       this.rush.groups.forEach((g, index) => items.push(this._createGroupItem(g, '/rush/group/' + index)));
       this.rush.players.forEach((p, index) => items.push(this._createPlayerItem(p, '/rush/player/' + index)));
 
-      // Shortcut
-      items.push({name: '@app.common.shortcuts', section: true});
+      // My details
+      items.push({name: '@rush.menu.my.title', section: true});
+      let baseUrl: string;
       if (group) {
-        const baseUrl = '/rush/group/' + this.rush.groups.indexOf(group);
-        items.push(this._createGroupItem(group, baseUrl, '@rush.menu.myGroup'));
-        items.push(this._createPlayerItem(player, baseUrl + '/player' + group.players.indexOf(player), '@rush.menu.myPlayer'));
+        baseUrl = '/rush/group/' + RushUtils.findGroupIndex(this.rush, group.index);
+        items.push(this._createGroupItem(group, baseUrl, '@rush.menu.my.group'));
+        baseUrl += '/player/' + GroupUtils.findPlayerIndex(group, player.name);
       } else {
-        items.push(this._createPlayerItem(player, 'rush/player/' + this.rush.players.indexOf(player), '@rush.menu.myPlayer'));
+        baseUrl = '/rush/player/' + RushUtils.findPlayerIndex(this.rush, player.name);
       }
+      items.push(this._createPlayerItem(player, baseUrl, '@rush.menu.my.player'));
     }
     this.items = items;
   }

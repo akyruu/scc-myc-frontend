@@ -41,7 +41,7 @@ export class GroupEditDialogComponent {
       leaderName: this.leaderName !== group.leader?.name ? this.leaderName : undefined,
     };
     if (Object.keys(updatedProps).length > 0) {
-      await this._lobbyGroupSocket.updateGroupProps(group.name, updatedProps);
+      await this._lobbyGroupSocket.updateGroupProps(group.index, updatedProps);
     }
 
     this.dialogRef.close();

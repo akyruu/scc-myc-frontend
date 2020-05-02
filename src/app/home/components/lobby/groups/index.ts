@@ -1,2 +1,2 @@
 export * from './group-edit-dialog.component';
-export * from './groups.component';
+export * from './lobby-groups.component';

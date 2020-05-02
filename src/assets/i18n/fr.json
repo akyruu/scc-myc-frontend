@@ -16,7 +16,6 @@
       "more": "Plus...",
       "none": "-- Aucun --",
       "overview": "Vue d'ensemble",
-      "shortcuts": "Raccourcis",
       "total": "Total",
       "totalValue": "Valeur total"
     },
@@ -114,8 +113,11 @@
     "menu": {
       "multi": "Rush Multi",
       "single": "Rush Solo",
-      "myPlayer": "Moi",
-      "myGroup": "Mon équipe"
+      "my": {
+        "title": "Mes informations",
+        "group": "Mon équipe",
+        "player": "Moi"
+      }
     },
     "player": {
       "title": "Joueur {{name}}",

@@ -10,7 +10,7 @@
                   [placeholder]="'app.model.vehicle' | translate">
         <mat-option>{{ 'app.common.none' | translate }}</mat-option>
         <mat-option *ngFor="let vehicle of data.settings.vehicles" [value]="vehicle.name">
-          {{ 'app.label.vehicle' | translate:vehicle }}
+          {{ vehicle | label }}
         </mat-option>
       </mat-select>
     </mat-form-field>

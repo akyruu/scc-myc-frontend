@@ -15,10 +15,10 @@ interface GridListProps {
 
 @Component({
   selector: 'app-lobby-groups',
-  templateUrl: './groups.component.html',
-  styleUrls: ['./groups.component.scss']
+  templateUrl: './lobby-groups.component.html',
+  styleUrls: ['./lobby-groups.component.scss']
 })
-export class GroupsComponent implements OnInit, OnDestroy {
+export class LobbyGroupsComponent implements OnInit, OnDestroy {
   /* STATIC FIELDS ========================================================= */
   private static readonly COLS_BY_MEDIA = new Map<string, GridListProps>([
     ['xs', {cols: 1, rowHeight: '2:1'}],
@@ -48,10 +48,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
   /* METHODS =============================================================== */
   ngOnInit(): void {
     this._subscription = this._mediaObserver.asObservable().subscribe(() => {
-      const media = Array.from(GroupsComponent.COLS_BY_MEDIA.keys())
+      const media = Array.from(LobbyGroupsComponent.COLS_BY_MEDIA.keys())
         .find(m => this._mediaObserver.isActive(m));
       if (media) {
-        this.gridListProps = GroupsComponent.COLS_BY_MEDIA.get(media);
+        this.gridListProps = LobbyGroupsComponent.COLS_BY_MEDIA.get(media);
       }
     });
   }
@@ -71,8 +71,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   /* Events ---------------------------------------------------------------- */
   doNewGroup(): void {
-    const groupName = this._translate.instant('home.lobby.group.name', {index: this.rush.groups.length + 1});
-    this._lobbyGroupSocket.createGroup(groupName);
+    this._lobbyGroupSocket.createGroup();
   }
 
   doEditGroup(group: Group, index: number): void {
@@ -86,7 +85,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   doRemoveGroup(group: Group): void {
-    this._lobbyGroupSocket.removeGroup(group.name);
+    this._lobbyGroupSocket.removeGroup(group.index);
   }
 
   /* Player ---------------------------------------------------------------- */
@@ -99,9 +98,9 @@ export class GroupsComponent implements OnInit, OnDestroy {
     }
 
     if (prevGroup) {
-      this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.name, group.name);
+      this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.index, group.index);
     } else {
-      this._lobbyGroupSocket.addPlayer(player.name, group.name);
+      this._lobbyGroupSocket.addPlayer(player.name, group.index);
     }
   }
 }

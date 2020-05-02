@@ -3,11 +3,11 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared';
 import {
   GroupEditDialogComponent,
-  GroupsComponent,
   JoinRushDialogComponent,
   LaunchSoloRushDialogComponent,
   LobbyComponent,
   LobbyDropListComponent,
+  LobbyGroupsComponent,
   LobbyPlayersComponent,
   WelcomeComponent
 } from './components';
@@ -20,7 +20,7 @@ import {LobbyService} from './services';
     LobbyComponent,
     LobbyDropListComponent,
     LobbyPlayersComponent,
-    GroupsComponent,
+    LobbyGroupsComponent,
     GroupEditDialogComponent,
     // Welcome
     JoinRushDialogComponent,

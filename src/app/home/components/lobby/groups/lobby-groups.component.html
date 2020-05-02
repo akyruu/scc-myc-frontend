@@ -11,9 +11,13 @@
               group
             </mat-icon>
           </div>
-          <mat-card-title>{{ group.name }}</mat-card-title>
+          <mat-card-title>
+            <!-- HACK: 'label' pipe not updated when name is update -->
+            <ng-container *ngIf="group.name">{{ 'app.label.group.named' | translate:group }}</ng-container>
+            <ng-container *ngIf="!group.name">{{ 'app.label.group.default' | translate:group }}</ng-container>
+          </mat-card-title>
           <mat-card-subtitle>
-            <ng-container *ngIf="group.vehicle">{{ 'app.label.vehicle' | translate:group.vehicle }}</ng-container>&nbsp;
+            <ng-container *ngIf="group.vehicle">{{ group.vehicle | label }}</ng-container>
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>

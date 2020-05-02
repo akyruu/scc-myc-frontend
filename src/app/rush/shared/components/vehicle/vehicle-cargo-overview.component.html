@@ -1,4 +1,4 @@
-<mat-toolbar>{{ 'app.label.vehicle' | translate:vehicle }}</mat-toolbar>
+<mat-toolbar>{{ vehicle | label }}</mat-toolbar>
 <mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="cargoPercent">
     <mat-header-cell *matHeaderCellDef>{{ 'app.model.cargo' | translate }}</mat-header-cell>

@@ -5,7 +5,7 @@
                 [placeholder]="'app.model.vehicle' | translate">
       <mat-option>{{ 'app.common.none' | translate }}</mat-option>
       <mat-option *ngFor="let vehicle of data.rush.settings.vehicles" [value]="vehicle">
-        {{ 'app.label.vehicle' | translate:vehicle }}
+        {{ vehicle | label }}
       </mat-option>
     </mat-select>
   </div>
