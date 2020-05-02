@@ -33,7 +33,7 @@ export class LaunchSoloRushDialogComponent {
     this.data.player.vehicle = this.vehicle;
     this._appContext.rush.launched = true;
 
-    this._router.navigate(['/rush/my-player']).then();
+    this._router.navigate(['/rush/player/0']).then();
     this.dialogRef.close();
   };
 

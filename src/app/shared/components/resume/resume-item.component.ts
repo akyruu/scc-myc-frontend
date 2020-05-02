@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from '@angular/core';
+import {Component, ContentChild, HostBinding, Input, TemplateRef} from '@angular/core';
 import {Icon, Label} from '../../models/view';
 
 @Component({
@@ -17,4 +17,8 @@ export class ResumeItemComponent {
   @Input() mode: 'currency' | 'quantity';
 
   @HostBinding('attr.class') className = 'resume-item';
+
+  @ContentChild('icon') iconRef: TemplateRef<any>;
+  @ContentChild('value') valueRef: TemplateRef<any>;
+  @ContentChild('label') labelRef: TemplateRef<any>;
 }

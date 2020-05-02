@@ -40,9 +40,9 @@ export class LobbyService {
         this.rush.launched = true;
 
         let path = '/rush/my-player';
-        if (this.player.name === this.rush.leader?.name) {
+        if (RushUtils.isLeader(this.rush, this.player.name)) {
           path = '/rush/overview';
-        } else if (this.player.name === this.group?.leader?.name) {
+        } else if (GroupUtils.isLeader(this.group, this.player.name)) {
           path = '/rush/my-group';
         }
         this._router.navigate([path]).then();

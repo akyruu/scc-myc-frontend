@@ -3,12 +3,15 @@ import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
+import {Icon, Label} from '../../models';
+
 export class NavItem {
-  name: string;
+  name: Label;
   disabled?: boolean;
-  icon?: string;
+  icon?: Icon;
   path?: string;
   children?: NavItem[];
+  section?: boolean;
 }
 
 @Component({
@@ -59,7 +62,7 @@ export class ListTreeItemComponent implements OnInit, OnDestroy {
     if (!item.children || !item.children.length) {
       this.router.navigate([item.path]).then();
     }
-    if (item.children && item.children.length) {
+    if (item.children?.length > 0) {
       this.expanded = !this.expanded;
     }
   }

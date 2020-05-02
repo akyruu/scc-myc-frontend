@@ -24,7 +24,7 @@ export class LobbyDropListComponent {
   ) {}
 
   /* METHODS =============================================================== */
-  getColor(player: Player): ThemePalette {
+  getColor(player: Player): ThemePalette { // FIXME duplicated code with group-overview
     if (player.name === this._appContext.player.name) {
       return 'primary';
     } else if (this.group && GroupUtils.isLeader(this.group, player.name)) {

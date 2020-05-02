@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ThemePalette} from '@angular/material/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 import {AppContext} from '../../../../core';
-import {Box, Group} from '../../../../shared';
+import {Box, Group, GroupUtils, Player, RushUtils} from '../../../../shared';
 
 @Component({
   selector: 'app-group-overview',
@@ -58,5 +59,17 @@ export class GroupOverviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
+  }
+
+  /* View ------------------------------------------------------------------ */
+  getColor(player: Player): ThemePalette { // FIXME duplicated code with lobby-drop-list
+    if (player.name === this._appContext.player.name) {
+      return 'primary';
+    } else if (this.group && GroupUtils.isLeader(this.group, player.name)) {
+      return 'accent';
+    } else if (RushUtils.isLeader(this._appContext.rush, player.name)) {
+      return 'warn';
+    }
+    return undefined;
   }
 }

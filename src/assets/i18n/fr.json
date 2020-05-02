@@ -16,10 +16,16 @@
       "more": "Plus...",
       "none": "-- Aucun --",
       "overview": "Vue d'ensemble",
+      "shortcuts": "Raccourcis",
       "total": "Total",
       "totalValue": "Valeur total"
     },
     "label": {
+      "group": {
+        "named": "Equipe {{name}}",
+        "default": "Equipe #{{index}}"
+      },
+      "player": "Joueur {{name}}",
       "vehicle": "{{name}} ({{cargo}} SCU)"
     },
     "model": {
@@ -102,11 +108,14 @@
       }
     },
     "group": {
-      "title": "{{name}}"
+      "title": "{{name}}",
+      "crew": "Crew"
     },
     "menu": {
       "multi": "Rush Multi",
-      "single": "Rush Solo"
+      "single": "Rush Solo",
+      "myPlayer": "Moi",
+      "myGroup": "Mon équipe"
     },
     "player": {
       "title": "Joueur {{name}}",

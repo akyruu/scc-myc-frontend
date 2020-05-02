@@ -13,7 +13,6 @@ import {GroupRountingModule} from './group-rounting.module';
   imports: [
     GroupRountingModule,
     RushSharedModule,
-  ],
-  providers: []
+  ]
 })
 export class GroupModule {}

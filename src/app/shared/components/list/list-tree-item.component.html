@@ -1,12 +1,27 @@
-<a mat-list-item [ngStyle]="{'padding-left': (level * 12) + 'px'}" (click)="onItemSelected(item)"
-   [ngClass]="{'active': item.path ? router.isActive(item.path, true): false, 'expanded': expanded}">
-  <mat-icon class="list-tree-item-icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
-  {{ item.name }}
-  <span fxFlex *ngIf="item.children && item.children.length">
+<ng-template #itemTitle>
+  <ng-container *ngIf="item.icon">
+    <mat-icon class="list-tree-item-icon" *ngIf="item.icon['svg']" [svgIcon]="item.icon['svg']"></mat-icon>
+    <mat-icon class="list-tree-item-icon" *ngIf="!item.icon['svg']">{{ item.icon }}</mat-icon>
+  </ng-container>
+  {{ item.name | label }}
+</ng-template>
+
+<ng-container *ngIf="item.section">
+  <mat-divider></mat-divider>
+  <h3 matSubheader>
+    <ng-container *ngTemplateOutlet="itemTitle"></ng-container>
+  </h3>
+</ng-container>
+<ng-container *ngIf="!item.section">
+  <a mat-list-item [ngStyle]="{'padding-left': (level * 12) + 'px'}" (click)="onItemSelected(item)"
+     [ngClass]="{'active': item.path ? router.isActive(item.path, true): false, 'expanded': expanded}">
+    <ng-container *ngTemplateOutlet="itemTitle"></ng-container>
+    <span fxFlex *ngIf="item.children && item.children.length">
     <span fxFlex></span>
     <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">expand_more</mat-icon>
   </span>
-</a>
-<div *ngIf="expanded">
-  <app-list-tree-item *ngFor="let child of item.children" [item]="child" [level]="level + 1"></app-list-tree-item>
-</div>
+  </a>
+  <div *ngIf="expanded">
+    <app-list-tree-item *ngFor="let child of item.children" [item]="child" [level]="level + 1"></app-list-tree-item>
+  </div>
+</ng-container>

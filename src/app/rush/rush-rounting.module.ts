@@ -1,16 +1,19 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule} from '@angular/router';
 
-import {MyGroupResolve, MyPlayerResolve, RushGuard, RushOverviewComponent} from './core';
+import {RushGroupResolve, RushGuard, RushOverviewComponent, RushPlayerResolve} from './core';
+
+const groupLoader = () => import('./group/group.module').then(m => m.GroupModule);
+const playerLoader = () => import('./player/player.module').then(m => m.PlayerModule);
 
 const routes: Route[] = [{
   path: '',
   canActivate: [RushGuard],
   children: [
     {path: '', redirectTo: 'overview', pathMatch: 'full'},
+    {path: 'group/:index', loadChildren: groupLoader, resolve: {group: RushGroupResolve}},
     {path: 'overview', component: RushOverviewComponent},
-    {path: 'my-group', loadChildren: () => import('./group/group.module').then(m => m.GroupModule), resolve: {group: MyGroupResolve}},
-    {path: 'my-player', loadChildren: () => import('./player/player.module').then(m => m.PlayerModule), resolve: {player: MyPlayerResolve}}
+    {path: 'player/:index', loadChildren: playerLoader, resolve: {player: RushPlayerResolve}},
   ]
 }];
 
@@ -18,9 +21,9 @@ const routes: Route[] = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   providers: [
-    MyGroupResolve,
-    MyPlayerResolve,
-    RushGuard
+    RushGroupResolve,
+    RushGuard,
+    RushPlayerResolve
   ]
 })
 export class RushRountingModule {}

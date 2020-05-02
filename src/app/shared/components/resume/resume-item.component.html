@@ -1,19 +1,25 @@
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar>
-      <mat-icon *ngIf="!icon['svg']">{{ icon }}</mat-icon>
-      <mat-icon [svgIcon]="icon['svg']" *ngIf="icon['svg']"></mat-icon>
+      <ng-container *ngIf="!iconRef; else: iconRef">
+        <mat-icon *ngIf="!icon['svg']">{{ icon }}</mat-icon>
+        <mat-icon [svgIcon]="icon['svg']" *ngIf="icon['svg']"></mat-icon>
+      </ng-container>
     </div>
-    <mat-card-title [ngSwitch]="mode">
-      <ng-container *ngSwitchCase="'currency'">{{ value | currency }}</ng-container>
-      <ng-container *ngSwitchCase="'quantity'">{{ value | quantity }}</ng-container>
-      <ng-container *ngSwitchDefault>{{ value | number: '1.0-0' }}</ng-container>
-      <ng-container *ngIf="total || total === 0"> ({{ (value / total) | percent:'1.0-0' }})</ng-container>
-      <ng-container *ngIf="addedValue"> ({{addedValue > 0 ? '+' : ''}}{{ addedValue | number: '1.0-0' }})</ng-container>
-      <ng-container *ngIf="tmpValue"> ({{ tmpValue | number: '1.0-0' }})</ng-container>
+    <mat-card-title>
+      <ng-container *ngIf="!valueRef; else: valueRef" [ngSwitch]="mode">
+        <ng-container *ngSwitchCase="'currency'">{{ value | currency }}</ng-container>
+        <ng-container *ngSwitchCase="'quantity'">{{ value | quantity }}</ng-container>
+        <ng-container *ngSwitchDefault>{{ value | number: '1.0-0' }}</ng-container>
+        <ng-container *ngIf="total || total === 0"> ({{ (value / total) | percent:'1.0-0' }})</ng-container>
+        <ng-container *ngIf="addedValue">
+          ({{addedValue > 0 ? '+' : ''}}{{ addedValue | number: '1.0-0' }})
+        </ng-container>
+        <ng-container *ngIf="tmpValue"> ({{ tmpValue | number: '1.0-0' }})</ng-container>
+      </ng-container>
     </mat-card-title>
-    <mat-card-subtitle>{{ label | label }}</mat-card-subtitle>
-    <div class="mat-spacer"></div>
-    <ng-content></ng-content>
+    <mat-card-subtitle>
+      <ng-container *ngIf="!labelRef; else: labelRef">{{ label | label }}</ng-container>
+    </mat-card-subtitle>
   </mat-card-header>
 </mat-card>

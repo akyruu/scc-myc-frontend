@@ -7,6 +7,17 @@
   <app-resume-item icon="all_inbox" label="@rush.player.boxes"
                    [value]="boxCount"
                    [addedValue]="rucksackCount"></app-resume-item>
+  <app-resume-item icon="group" label="@rush.group.crew">
+    <ng-template #value>
+      <mat-chip-list>
+        <a mat-chip *ngFor="let p of group.players; let index = index"
+           [routerLink]="['../player', index]"
+           [color]="getColor(p)" [selected]="!!getColor(p)">
+          {{ p.name }}
+        </a>
+      </mat-chip-list>
+    </ng-template>
+  </app-resume-item>
 </app-resume-list>
 <app-vehicle-cargo-overview *ngIf="group.vehicle" [owner]="group"></app-vehicle-cargo-overview>
 <app-boxes-overview [boxes]="boxes"></app-boxes-overview>

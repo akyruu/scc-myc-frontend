@@ -11,6 +11,7 @@ import {RushSharedModule} from './shared';
   imports: [
     RushSharedModule,
     RushRountingModule
-  ]
+  ],
+  providers: []
 })
 export class RushModule {}

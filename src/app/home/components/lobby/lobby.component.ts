@@ -74,9 +74,10 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   isRushValid(): boolean {
-    if (this.rush.players.length > 0) {
-      return false;
-    }
+    // FIXME players not in group is now possible but a warning message must be send before launch party
+    // if (this.rush.players.length > 0) {
+    //  return false;
+    // }
     for (let group of this.rush.groups) {
       if (group.players.length === 0) {
         return false;

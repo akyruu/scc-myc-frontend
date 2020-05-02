@@ -1,2 +1,2 @@
-export * from './my-group.resolve';
-export * from './my-player.resolve';
+export * from './rush-group.resolve';
+export * from './rush-player.resolve';
