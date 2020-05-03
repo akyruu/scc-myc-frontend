@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
-import {Settings} from '../../shared';
+import {BindUtils, Settings} from '../../shared';
 
 @Injectable({providedIn: 'root'})
 export class ApiHttp {
@@ -10,7 +10,7 @@ export class ApiHttp {
 
   /* METHODS =============================================================== */
   async loadSettings(): Promise<Settings> {
-    const settings = await this._http.get('/api/settings').toPromise();
-    return Object.assign(new Settings(), settings);
+    const settings = await this._http.get<Settings>('/api/settings').toPromise();
+    return BindUtils.bindSettings(settings);
   }
 }

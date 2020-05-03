@@ -2,14 +2,18 @@ import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 
 import {PlayerProps} from '../../shared';
+import {SocketService} from './socket.service';
 
 @Injectable({providedIn: 'root'})
-export class LobbyPlayerSocket {
+export class PlayerSocket {
   /* FIELDS ================================================================ */
   readonly playerUpdated = this._socket.fromEvent<{ playerName: string, updatedProps: PlayerProps }>('lobby:player:propsUpdated');
 
   /* CONSTRUCTOR =========================================================== */
-  constructor(private _socket: Socket) {}
+  constructor(
+    private _socket: Socket,
+    private _socketService: SocketService,
+  ) {}
 
   /* METHODS =============================================================== */
   /**
@@ -19,7 +23,6 @@ export class LobbyPlayerSocket {
    * @param updatedProps Updated properties of player.
    */
   updatePlayerProps(playerName: string, updatedProps: PlayerProps): Promise<void> {
-    this._socket.emit('lobby:player:updateProps', {playerName: playerName, updatedProps: updatedProps});
-    return this._socket.fromOneTimeEvent('lobby:player:propsUpdated');
+    return this._socketService.emit('lobby:player:updateProps', {playerName: playerName, updatedProps: updatedProps});
   }
 }

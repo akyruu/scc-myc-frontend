@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 
-import {AppContext, LobbyPlayerSocket, LobbyRushSocket} from '../../../core';
+import {AppContext, PlayerSocket, RushSocket} from '../../../core';
 import {Player, Rush, Vehicle} from '../../../shared';
 
 export interface LaunchRushData {
@@ -24,8 +24,8 @@ export class LaunchSoloRushDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: LaunchRushData,
     private _router: Router,
     private _appContext: AppContext,
-    private _lobbyPlayerSocket: LobbyPlayerSocket,
-    private _lobbyRushSocket: LobbyRushSocket,
+    private _lobbyPlayerSocket: PlayerSocket,
+    private _lobbyRushSocket: RushSocket,
   ) {}
 
   /* METHODS =============================================================== */

@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {LobbyGroupSocket} from '../../../../core/sockets';
+import {GroupSocket} from '../../../../core/sockets';
 import {Group, Settings} from '../../../../shared/models';
 
 export interface GroupEditData {
@@ -24,7 +24,7 @@ export class GroupEditDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<GroupEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupEditData,
-    private _lobbyGroupSocket: LobbyGroupSocket,
+    private _lobbyGroupSocket: GroupSocket,
   ) {
     this.groupName = this.data.group.name;
     this.vehicleName = this.data.group.vehicle?.name;

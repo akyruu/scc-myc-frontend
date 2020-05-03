@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 
-import {LobbyGroupSocket, LobbyRushSocket} from '../../../core';
+import {GroupSocket, RushSocket} from '../../../core';
 import {Menu, Player, Rush, RushUtils} from '../../../shared';
 import {LobbyService} from '../../services';
 
@@ -44,8 +44,8 @@ export class LobbyComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _translate: TranslateService,
     private _lobbyService: LobbyService,
-    private _lobbyGroupSocket: LobbyGroupSocket,
-    private _lobbyRushSocket: LobbyRushSocket,
+    private _lobbyGroupSocket: GroupSocket,
+    private _lobbyRushSocket: RushSocket,
   ) {}
 
   /* METHODS =============================================================== */

@@ -2,7 +2,7 @@ import {CdkDragDrop, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Component, Input, Optional} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 
-import {AppContext, LobbyGroupSocket} from '../../../../core';
+import {AppContext, GroupSocket} from '../../../../core';
 import {Group, GroupUtils, Player, RushUtils} from '../../../../shared';
 
 // TODO add rights managements
@@ -20,7 +20,7 @@ export class LobbyDropListComponent {
   /* CONSTRUCTOR =========================================================== */
   constructor(
     private _appContext: AppContext,
-    private _lobbyGroupSocket: LobbyGroupSocket
+    private _lobbyGroupSocket: GroupSocket
   ) {}
 
   /* METHODS =============================================================== */

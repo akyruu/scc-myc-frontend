@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 
-import {ApiHttp, AppContext, LobbyRushSocket, SocketService} from '../../../core';
+import {ApiHttp, AppContext, RushSocket, SocketService} from '../../../core';
 import {RushUtils} from '../../../shared';
 import {JoinRushData, JoinRushDialogComponent} from './join-rush-dialog.component';
 import {LaunchRushData, LaunchSoloRushDialogComponent} from './launch-solo-rush-dialog.component';
@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
     private _translate: TranslateService,
     private _apiHttp: ApiHttp,
     private _appContext: AppContext,
-    private _lobbyRushSocket: LobbyRushSocket,
+    private _lobbyRushSocket: RushSocket,
     private _socket: SocketService,
   ) {}
 
@@ -44,7 +44,7 @@ export class WelcomeComponent implements OnInit {
     this.loading = true;
     const success = await this._socket.connect();
     if (success) {
-      const result = await this._lobbyRushSocket.createRush(this.playerName, false);
+      const result = await this._lobbyRushSocket.createRush(this.playerName);
       this._appContext.player = result.player;
       this._appContext.rush = result.rush;
       this._router.navigate(['/lobby']).then();

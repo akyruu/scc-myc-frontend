@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {map} from 'rxjs/operators';
 
-import {Group, GroupProps} from '../../shared';
+import {BindUtils, Group, GroupProps} from '../../shared';
+import {SocketService} from './socket.service';
 
 @Injectable({providedIn: 'root'})
-export class LobbyGroupSocket {
+export class GroupSocket {
   /* FIELDS ================================================================ */
   readonly groupCreated = this._socket.fromEvent<Group>('lobby:group:created')
-    .pipe(map(group => Object.assign(new Group(), group)));
+    .pipe(map(group => BindUtils.bindGroup(group)));
   readonly groupPropsUpdated = this._socket.fromEvent<{ groupIndex: number, updatedProps: GroupProps }>('lobby:group:propsUpdated');
   readonly groupRemoved = this._socket.fromEvent<number>('lobby:group:removed');
 
@@ -17,7 +18,10 @@ export class LobbyGroupSocket {
   readonly playerSwitched = this._socket.fromEvent<{ playerName: string, oldGroupIndex: number, newGroupIndex: number }>('lobby:group:playerSwitched');
 
   /* CONSTRUCTOR =========================================================== */
-  constructor(private _socket: Socket) {}
+  constructor(
+    private _socket: Socket,
+    private _socketService: SocketService
+  ) {}
 
   /* METHODS =============================================================== */
   /**
@@ -25,8 +29,8 @@ export class LobbyGroupSocket {
    *
    * @param groupName Name of group.
    */
-  createGroup(groupName?: string): void {
-    this._socket.emit('lobby:group:create', groupName);
+  createGroup(groupName?: string): Promise<void> {
+    return this._socketService.emit('lobby:group:create', groupName);
   }
 
   /**
@@ -36,8 +40,7 @@ export class LobbyGroupSocket {
    * @param updatedProps Updated properties of group.
    */
   updateGroupProps(groupIndex: number, updatedProps: GroupProps): Promise<void> {
-    this._socket.emit('lobby:group:updateProps', {groupIndex: groupIndex, updatedProps: updatedProps});
-    return this._socket.fromOneTimeEvent('lobby:group:propsUpdated');
+    return this._socketService.emit('lobby:group:updateProps', {groupIndex: groupIndex, updatedProps: updatedProps});
   }
 
   /**
@@ -45,8 +48,8 @@ export class LobbyGroupSocket {
    *
    * @param groupIndex Index of group to remove.
    */
-  removeGroup(groupIndex: number): void {
-    this._socket.emit('lobby:group:remove', groupIndex);
+  removeGroup(groupIndex: number): Promise<void> {
+    return this._socketService.emit('lobby:group:remove', groupIndex);
   }
 
   /* Player ---------------------------------------------------------------- */
@@ -56,8 +59,8 @@ export class LobbyGroupSocket {
    * @param playerName Player to add.
    * @param groupIndex Index of target group.
    */
-  addPlayer(playerName: string, groupIndex: number): void {
-    this._socket.emit('lobby:group:addPlayer', {playerName: playerName, groupIndex: groupIndex});
+  addPlayer(playerName: string, groupIndex: number): Promise<void> {
+    return this._socketService.emit('lobby:group:addPlayer', {playerName: playerName, groupIndex: groupIndex});
   }
 
   /**
@@ -66,8 +69,8 @@ export class LobbyGroupSocket {
    * @param playerName Player name to remove.
    * @param groupIndex Index of target group.
    */
-  removePlayer(playerName: string, groupIndex: number): void {
-    this._socket.emit('lobby:group:removePlayer', {playerName: playerName, groupIndex: groupIndex});
+  removePlayer(playerName: string, groupIndex: number): Promise<void> {
+    return this._socketService.emit('lobby:group:removePlayer', {playerName: playerName, groupIndex: groupIndex});
   }
 
   /**
@@ -77,7 +80,11 @@ export class LobbyGroupSocket {
    * @param oldGroupIndex Index of source group.
    * @param newGroupIndex Index of target group.
    */
-  switchPlayer(playerName: string, oldGroupIndex: number, newGroupIndex: number): void {
-    this._socket.emit('lobby:group:switchPlayer', {playerName: playerName, oldGroupIndex: oldGroupIndex, newGroupIndex: newGroupIndex});
+  switchPlayer(playerName: string, oldGroupIndex: number, newGroupIndex: number): Promise<void> {
+    return this._socketService.emit('lobby:group:switchPlayer', {
+      playerName: playerName,
+      oldGroupIndex: oldGroupIndex,
+      newGroupIndex: newGroupIndex
+    });
   }
 }

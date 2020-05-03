@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 
-import {LobbyGroupSocket} from '../../../../core';
+import {GroupSocket} from '../../../../core';
 import {Group, GroupUtils, Player, Rush, RushUtils} from '../../../../shared';
 import {GroupEditData, GroupEditDialogComponent} from './group-edit-dialog.component';
 
@@ -42,7 +42,7 @@ export class LobbyGroupsComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _mediaObserver: MediaObserver,
     private _translate: TranslateService,
-    private _lobbyGroupSocket: LobbyGroupSocket
+    private _lobbyGroupSocket: GroupSocket
   ) {}
 
   /* METHODS =============================================================== */

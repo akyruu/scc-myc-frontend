@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
-import {AppContext, LobbyGroupSocket, LobbyRushSocket} from '../../core';
+import {AppContext, GroupSocket, RushSocket} from '../../core';
 import {Group, GroupUtils, Player, Rush, RushUtils, SettingsUtils} from '../../shared';
 
 @Injectable()
@@ -11,8 +11,8 @@ export class LobbyService {
   constructor(
     private _router: Router,
     private _appContext: AppContext,
-    private _lobbyGroupSocket: LobbyGroupSocket,
-    private _lobbyRushSocket: LobbyRushSocket,
+    private _lobbyGroupSocket: GroupSocket,
+    private _lobbyRushSocket: RushSocket,
   ) {}
 
   /* METHODS =============================================================== */
@@ -39,13 +39,18 @@ export class LobbyService {
       this._lobbyRushSocket.rushLaunched.subscribe(() => {
         this.rush.launched = true;
 
-        let path = '/rush/my-player';
-        if (RushUtils.isLeader(this.rush, this.player.name)) {
-          path = '/rush/overview';
-        } else if (GroupUtils.isLeader(this.group, this.player.name)) {
-          path = '/rush/my-group';
+        const route: any[] = ['/rush'];
+        if (!RushUtils.isLeader(this.rush, this.player.name)) {
+          if (this.group) {
+            route.push('group', RushUtils.findGroupIndex(this.rush, this.group.index));
+            if (!GroupUtils.isLeader(this.group, this.player.name)) {
+              route.push('player', GroupUtils.findPlayerIndex(this.group, this.player.name));
+            }
+          } else {
+            route.push('player', RushUtils.findPlayerIndex(this.rush, this.player.name));
+          }
         }
-        this._router.navigate([path]).then();
+        this._router.navigate(route).then();
       })
     ];
   };

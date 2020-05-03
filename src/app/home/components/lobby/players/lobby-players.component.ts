@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import {LobbyGroupSocket} from '../../../../core';
+import {GroupSocket} from '../../../../core';
 import {Player, Rush} from '../../../../shared';
 
 // TODO add rights managements
@@ -16,5 +16,5 @@ export class LobbyPlayersComponent {
   @Input() rush: Rush;
 
   /* CONSTRUCTOR =========================================================== */
-  constructor(private _lobbyGroupSocket: LobbyGroupSocket) {}
+  constructor(private _lobbyGroupSocket: GroupSocket) {}
 }
