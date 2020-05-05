@@ -20,7 +20,7 @@ export class LobbyDropListComponent {
   /* CONSTRUCTOR =========================================================== */
   constructor(
     private _appContext: AppContext,
-    private _lobbyGroupSocket: GroupSocket
+    private _groupSocket: GroupSocket
   ) {}
 
   /* METHODS =============================================================== */
@@ -58,12 +58,12 @@ export class LobbyDropListComponent {
       const player = <Player>event.item.data;
       if (prevGroup) {
         if (group) {
-          this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.index, group.index);
+          this._groupSocket.switchPlayer(player.name, prevGroup.index, group.index);
         } else {
-          this._lobbyGroupSocket.removePlayer(player.name, prevGroup.index);
+          this._groupSocket.removePlayer(player.name, prevGroup.index);
         }
       } else if (group) {
-        this._lobbyGroupSocket.addPlayer(player.name, group.index);
+        this._groupSocket.addPlayer(player.name, group.index);
       }
 
       if (player.name === this._appContext.player.name) {
@@ -75,6 +75,6 @@ export class LobbyDropListComponent {
   doRemovePlayer(player: Player, index: number) {
     this.group.players.splice(index, 1);
     this._appContext.rush.players.push(player);
-    this._lobbyGroupSocket.removePlayer(player.name, this.group.index);
+    this._groupSocket.removePlayer(player.name, this.group.index);
   }
 }

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
 
-import {AppContext} from '../../../core';
-import {Group, Player, Rush} from '../../../shared';
+import {AppContext, PlayerSocket} from '../../../core';
+import {Group, Player, Rush, RushUtils} from '../../../shared';
 
 class GroupWrapper {
   boxes = 0;
@@ -22,23 +23,41 @@ class PlayerWrapper {
   templateUrl: './rush-overview.component.html',
   styleUrls: ['./rush-overview.component.scss']
 })
-export class RushOverviewComponent implements OnInit {
+export class RushOverviewComponent implements OnInit, OnDestroy {
   /* FIELDS ================================================================ */
   groupWrappers: GroupWrapper[] = [];
   playerWrappers: PlayerWrapper[] = [];
 
   private _rush: Rush;
+  private readonly _subscriptions: Subscription[] = [];
 
   /* CONSTRUCTOR =========================================================== */
-  constructor(private _appContext: AppContext) {}
+  constructor(
+    private _appContext: AppContext,
+    private _playerSocket: PlayerSocket,
+  ) {}
 
   /* METHODS =============================================================== */
   ngOnInit(): void {
     this._rush = this._appContext.rush;
     this._initGroups();
     this._initPlayers();
+
+    const update = (data: { playerName: string }) =>
+      RushUtils.findPlayer(this._rush, data.playerName)
+        ? this._initPlayers()
+        : this._initGroups();
+    this._subscriptions.push(
+      this._playerSocket.rucksackBoxItemUpdated.subscribe(update.bind(this)),
+      this._playerSocket.rucksackMovedToBox.subscribe(update.bind(this))
+    );
   }
 
+  ngOnDestroy(): void {
+    this._subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  /* Tools ----------------------------------------------------------------- */
   private _initGroups(): void {
     this.groupWrappers = [];
     this._rush.groups.forEach(group => {

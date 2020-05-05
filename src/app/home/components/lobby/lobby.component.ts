@@ -43,9 +43,9 @@ export class LobbyComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _translate: TranslateService,
+    private _groupSocket: GroupSocket,
     private _lobbyService: LobbyService,
-    private _lobbyGroupSocket: GroupSocket,
-    private _lobbyRushSocket: RushSocket,
+    private _rushSocket: RushSocket,
   ) {}
 
   /* METHODS =============================================================== */
@@ -96,11 +96,11 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   doLaunch() {
-    this._lobbyRushSocket.launchRush().then(); // Event consumed at event binding
+    this._rushSocket.launchRush().then(); // Event consumed at event binding
   }
 
   async doQuit(): Promise<void> {
-    await this._lobbyRushSocket.leaveRush();
+    await this._rushSocket.leaveRush();
     this._router.navigate(['/welcome']).then();
   }
 }

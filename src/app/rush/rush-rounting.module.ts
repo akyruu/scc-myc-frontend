@@ -9,6 +9,7 @@ const playerLoader = () => import('./player/player.module').then(m => m.PlayerMo
 const routes: Route[] = [{
   path: '',
   canActivate: [RushGuard],
+  canDeactivate: [RushGuard],
   children: [
     {path: '', redirectTo: 'overview', pathMatch: 'full'},
     {path: 'group/:index', loadChildren: groupLoader, resolve: {group: RushGroupResolve}},

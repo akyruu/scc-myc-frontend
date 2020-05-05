@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
     private _translate: TranslateService,
     private _apiHttp: ApiHttp,
     private _appContext: AppContext,
-    private _lobbyRushSocket: RushSocket,
+    private _rushSocket: RushSocket,
     private _socket: SocketService,
   ) {}
 
@@ -44,7 +44,7 @@ export class WelcomeComponent implements OnInit {
     this.loading = true;
     const success = await this._socket.connect();
     if (success) {
-      const result = await this._lobbyRushSocket.createRush(this.playerName);
+      const result = await this._rushSocket.createRush(this.playerName);
       this._appContext.player = result.player;
       this._appContext.rush = result.rush;
       this._router.navigate(['/lobby']).then();

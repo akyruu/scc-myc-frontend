@@ -42,7 +42,7 @@ export class LobbyGroupsComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _mediaObserver: MediaObserver,
     private _translate: TranslateService,
-    private _lobbyGroupSocket: GroupSocket
+    private _groupSocket: GroupSocket
   ) {}
 
   /* METHODS =============================================================== */
@@ -71,7 +71,7 @@ export class LobbyGroupsComponent implements OnInit, OnDestroy {
 
   /* Events ---------------------------------------------------------------- */
   doNewGroup(): void {
-    this._lobbyGroupSocket.createGroup();
+    this._groupSocket.createGroup();
   }
 
   doEditGroup(group: Group, index: number): void {
@@ -85,7 +85,7 @@ export class LobbyGroupsComponent implements OnInit, OnDestroy {
   }
 
   doRemoveGroup(group: Group): void {
-    this._lobbyGroupSocket.removeGroup(group.index);
+    this._groupSocket.removeGroup(group.index);
   }
 
   /* Player ---------------------------------------------------------------- */
@@ -98,9 +98,9 @@ export class LobbyGroupsComponent implements OnInit, OnDestroy {
     }
 
     if (prevGroup) {
-      this._lobbyGroupSocket.switchPlayer(player.name, prevGroup.index, group.index);
+      this._groupSocket.switchPlayer(player.name, prevGroup.index, group.index);
     } else {
-      this._lobbyGroupSocket.addPlayer(player.name, group.index);
+      this._groupSocket.addPlayer(player.name, group.index);
     }
   }
 }

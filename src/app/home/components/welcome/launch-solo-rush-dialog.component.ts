@@ -24,8 +24,8 @@ export class LaunchSoloRushDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: LaunchRushData,
     private _router: Router,
     private _appContext: AppContext,
-    private _lobbyPlayerSocket: PlayerSocket,
-    private _lobbyRushSocket: RushSocket,
+    private _playerSocket: PlayerSocket,
+    private _rushSocket: RushSocket,
   ) {}
 
   /* METHODS =============================================================== */

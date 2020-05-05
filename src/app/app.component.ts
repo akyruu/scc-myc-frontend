@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
-import {SocketService} from './core/sockets';
+import {SocketService} from './core';
 
 @Component({
   selector: 'app-root',

@@ -11,8 +11,8 @@ export class LobbyService {
   constructor(
     private _router: Router,
     private _appContext: AppContext,
-    private _lobbyGroupSocket: GroupSocket,
-    private _lobbyRushSocket: RushSocket,
+    private _groupSocket: GroupSocket,
+    private _rushSocket: RushSocket,
   ) {}
 
   /* METHODS =============================================================== */
@@ -34,9 +34,9 @@ export class LobbyService {
 
   bindRushEvents(): Subscription[] {
     return [
-      this._lobbyRushSocket.playerJoined.subscribe(player => this.rush.players.push(player)),
-      this._lobbyRushSocket.playerLeaved.subscribe(playerName => RushUtils.deletePlayer(this.rush, playerName)),
-      this._lobbyRushSocket.rushLaunched.subscribe(() => {
+      this._rushSocket.playerJoined.subscribe(player => this.rush.players.push(player)),
+      this._rushSocket.playerLeaved.subscribe(playerName => RushUtils.deletePlayer(this.rush, playerName)),
+      this._rushSocket.rushLaunched.subscribe(() => {
         this.rush.launched = true;
 
         const route: any[] = ['/rush'];
@@ -57,8 +57,8 @@ export class LobbyService {
 
   bindGroupEvents(): Subscription[] {
     return [
-      this._lobbyGroupSocket.groupCreated.subscribe(group => this.rush.groups.push(group)),
-      this._lobbyGroupSocket.groupPropsUpdated.subscribe(data => {
+      this._groupSocket.groupCreated.subscribe(group => this.rush.groups.push(group)),
+      this._groupSocket.groupPropsUpdated.subscribe(data => {
         const group = RushUtils.findGroup(this.rush, data.groupIndex);
         if (data.updatedProps.name !== undefined) {
           group.name = data.updatedProps.name;
@@ -74,7 +74,7 @@ export class LobbyService {
             : undefined;
         }
       }),
-      this._lobbyGroupSocket.groupRemoved.subscribe(groupName => {
+      this._groupSocket.groupRemoved.subscribe(groupName => {
         const group = RushUtils.deleteGroup(this.rush, groupName);
         if (group) {
           this.rush.players.push(...group.players);
@@ -85,7 +85,7 @@ export class LobbyService {
 
   bindPlayerEvents(): Subscription[] {
     return [
-      this._lobbyGroupSocket.playerAdded.subscribe(data => {
+      this._groupSocket.playerAdded.subscribe(data => {
         const group = RushUtils.findGroup(this.rush, data.groupIndex);
         const player = RushUtils.deletePlayer(this.rush, data.playerName);
         if (player) { // Check already executed
@@ -95,7 +95,7 @@ export class LobbyService {
           }
         }
       }),
-      this._lobbyGroupSocket.playerRemoved.subscribe(data => {
+      this._groupSocket.playerRemoved.subscribe(data => {
         const group = RushUtils.findGroup(this.rush, data.groupIndex);
         const player = GroupUtils.deletePlayer(group, data.playerName);
         if (player) { // Check already executed
@@ -105,7 +105,7 @@ export class LobbyService {
           }
         }
       }),
-      this._lobbyGroupSocket.playerSwitched.subscribe(data => {
+      this._groupSocket.playerSwitched.subscribe(data => {
         const oldGroup = RushUtils.findGroup(this.rush, data.oldGroupIndex);
         const newGroup = RushUtils.findGroup(this.rush, data.newGroupIndex);
         const player = GroupUtils.deletePlayer(oldGroup, data.playerName);

@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {GroupSocket} from '../../../../core/sockets';
+import {GroupSocket} from '../../../../core';
 import {Group, Settings} from '../../../../shared/models';
 
 export interface GroupEditData {
@@ -24,7 +24,7 @@ export class GroupEditDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<GroupEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupEditData,
-    private _lobbyGroupSocket: GroupSocket,
+    private _groupSocket: GroupSocket,
   ) {
     this.groupName = this.data.group.name;
     this.vehicleName = this.data.group.vehicle?.name;
@@ -41,7 +41,7 @@ export class GroupEditDialogComponent {
       leaderName: this.leaderName !== group.leader?.name ? this.leaderName : undefined,
     };
     if (Object.keys(updatedProps).length > 0) {
-      await this._lobbyGroupSocket.updateGroupProps(group.index, updatedProps);
+      await this._groupSocket.updateGroupProps(group.index, updatedProps);
     }
 
     this.dialogRef.close();

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {RushOverviewComponent} from './core';
+import {RushOverviewComponent, RushService} from './core';
 import {RushRountingModule} from './rush-rounting.module';
 import {RushSharedModule} from './shared';
 
@@ -12,6 +12,8 @@ import {RushSharedModule} from './shared';
     RushSharedModule,
     RushRountingModule
   ],
-  providers: []
+  providers: [
+    RushService
+  ]
 })
 export class RushModule {}

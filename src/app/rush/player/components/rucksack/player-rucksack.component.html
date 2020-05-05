@@ -15,7 +15,7 @@
   </app-title>
   <app-rush-input-item *ngFor="let boxItem of rucksack.items"
                        [item]="boxItem.item" [type]="boxItem.type"
-                       [(quantity)]="boxItem.quantity" (quantityChange)="doUpdateBoxItem(boxItem)"
+                       [(quantity)]="boxItem.quantity" (quantityChange)="doUpdateBoxItemQuantity(boxItem)"
                        [estimatedValue]="boxItem.calculated.value"></app-rush-input-item>
   <app-rush-select-item [itemGroups]="itemGroups"
                         (selectionChange)="doAddBoxItem($event)"></app-rush-select-item>
